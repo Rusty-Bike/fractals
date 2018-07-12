@@ -6,16 +6,9 @@ import scala.scalanative.native._
 object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
   var lines: List[LineSegment] = _
 
-  class Point(val x: Int, val y: Int) {
-    override def toString = {
-      s"Point($x, $y)"
-    }
-  }
-  class LineSegment(val start: Point, val end: Point) {
-    override def toString = {
-      s"LineSegment($start, $end)"
-    }
-  }
+  class Point(val x: Int, val y: Int)
+  class LineSegment(val start: Point, val end: Point)
+
 
   def sierpinski(currentDepth: Int, iterations: Int, length: Int, leftPoint: Point): List[LineSegment] = {
     // topPoint
@@ -26,10 +19,6 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
     val bottomRightPoint = new Point(leftPoint.x + length, leftPoint.y)
 
     if (currentDepth == iterations) {
-
-
-      // add the three lines of this triangle
-
       // add the left side
       val leftLine = new LineSegment(bottomLeftPoint, topPoint)
       // add the right side
@@ -37,17 +26,30 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
       // add the bottom
       val bottomLine = new LineSegment(bottomLeftPoint, bottomRightPoint)
 
+      // return the list of line segments comprising the triangle
       List(leftLine, rightLine, bottomLine)
-
     } else {
       // Call ourselves again on the three sub-triangles
       // bottom left triangle
-      val lines1 = sierpinski(currentDepth + 1, iterations, length / 2, bottomLeftPoint)
+      val lines1 = sierpinski(
+        currentDepth + 1,
+        iterations,
+        length / 2,
+        bottomLeftPoint
+      )
 
       // bottom right triangle
-      val lines2 = sierpinski(currentDepth + 1, iterations, length / 2, new Point(bottomLeftPoint.x + length / 2, bottomLeftPoint.y))
-      // top center triangle
+      val lines2 = sierpinski(
+        currentDepth + 1,
+        iterations,
+        length / 2,
+        new Point(
+          bottomLeftPoint.x + length / 2,
+          bottomLeftPoint.y
+        )
+      )
 
+      // top center triangle
       val lines3 = sierpinski(
         currentDepth + 1,
         iterations,
@@ -57,7 +59,7 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
           bottomLeftPoint.y - (length / 2)
         )
       )
-
+      // Merge and return the list of lines
       lines1 ::: lines2 ::: lines3
     }
   }
@@ -79,7 +81,7 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
   }
 
   override def onDraw(): Unit = {
-    SDL_SetRenderDrawColor(renderer, 255.toUByte, 255.toUByte ,  255.toUByte, SDL_ALPHA_OPAQUE)
+    SDL_SetRenderDrawColor(renderer, 255.toUByte, 255.toUByte, 255.toUByte, SDL_ALPHA_OPAQUE)
 
     lines.foreach(linesegment => SDL_RenderDrawLine(renderer, linesegment.start.x, linesegment.start.y, linesegment.end.x, linesegment.end.y))
 
