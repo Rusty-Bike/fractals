@@ -16,7 +16,12 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
     }
   }
 
-  override def onDraw(): Unit = {}
+  override def onDraw(): Unit = {
+    SDL_SetRenderDrawColor(renderer, 255.toUByte, 255.toUByte ,  255.toUByte, SDL_ALPHA_OPAQUE)
+
+    SDL_RenderDrawLine(renderer, 0, 0, 800, 800)
+    SDL_RenderPresent(renderer)
+  }
 
   override def onIdle(): Unit = {}
 
