@@ -5,7 +5,7 @@ import scala.scalanative.native._
 
 object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
   var lines: List[LineSegment] = _
-
+  var depth: Int = 0
   class Point(val x: Int, val y: Int)
   class LineSegment(val start: Point, val end: Point)
 
@@ -66,7 +66,7 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
 
 
   override def main(args: Array[String]): Unit = {
-    lines = sierpinski(0, 7, 800, new Point(0, 800))
+    lines = sierpinski(0, 0, 800, new Point(0, 799))
     super.main(args)
   }
 
@@ -75,6 +75,10 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
       case SDL_QUIT =>
         SDL_Quit()
         System.exit(0)
+      case SDL_KEYUP => {
+        depth = ((depth + 1) % 8)
+        lines = sierpinski(0, depth, 800, new Point(0, 799))
+      }
       case _ =>
         ()
     }
