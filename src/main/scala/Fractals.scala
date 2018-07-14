@@ -81,6 +81,10 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
   }
 
   override def onDraw(): Unit = {
+    SDL_SetRenderDrawColor(renderer, 0.toUByte, 0.toUByte, 0.toUByte, SDL_ALPHA_OPAQUE)
+  
+    SDL_RenderClear(renderer)
+    
     SDL_SetRenderDrawColor(renderer, 255.toUByte, 255.toUByte, 255.toUByte, SDL_ALPHA_OPAQUE)
 
     lines.foreach(linesegment => SDL_RenderDrawLine(renderer, linesegment.start.x, linesegment.start.y, linesegment.end.x, linesegment.end.y))
