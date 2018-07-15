@@ -11,61 +11,51 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
   
   var lines: List[LineSegment] = _
   var depth: Int = 0
-  class Point(val x: Int, val y: Int)
+  case class Point(val x: Int, val y: Int)
   class LineSegment(val start: Point, val end: Point)
+  
+  case class Triangle(bottomLeftPoint: Point, length: Int) {
+  	def toLines(): List[LineSegment] = {
+      // TopPoint
+      val topPoint = new Point(bottomLeftPoint.x + (length / 2), bottomLeftPoint.y - (length))
 
-
-  def sierpinski(currentDepth: Int, iterations: Int, length: Int, leftPoint: Point): List[LineSegment] = {
-    // topPoint
-    val topPoint = new Point(leftPoint.x + (length / 2), leftPoint.y - (length))
-    // BottomLeftPoint
-    val bottomLeftPoint = leftPoint
-    // BottomRightPoint
-    val bottomRightPoint = new Point(leftPoint.x + length, leftPoint.y)
-
-    if (currentDepth == iterations) {
+      // BottomRightPoint
+      val bottomRightPoint = new Point(bottomLeftPoint.x + length, bottomLeftPoint.y)
+      
       // add the left side
       val leftLine = new LineSegment(bottomLeftPoint, topPoint)
       // add the right side
       val rightLine = new LineSegment(bottomRightPoint, topPoint)
       // add the bottom
       val bottomLine = new LineSegment(bottomLeftPoint, bottomRightPoint)
+      
+      List(bottomLine, leftLine, rightLine)
+  	}
+  }
 
-      // return the list of line segments comprising the triangle
-      List(leftLine, rightLine, bottomLine)
+  
+  
+  def sierpinski(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+    val triangle = Triangle(bottomLeftPoint, length)
+
+    if (currentDepth == iterations) {
+      triangle.toLines
     } else {
+      val newDepth = currentDepth + 1
+      val newLength = length / 2
+      
       // Call ourselves again on the three sub-triangles
       // bottom left triangle
-      val lines1 = sierpinski(
-        currentDepth + 1,
-        iterations,
-        length / 2,
-        bottomLeftPoint
-      )
+      val bottomLeftTriangle = sierpinski(newDepth, iterations, newLength, bottomLeftPoint)
 
       // bottom right triangle
-      val lines2 = sierpinski(
-        currentDepth + 1,
-        iterations,
-        length / 2,
-        new Point(
-          bottomLeftPoint.x + length / 2,
-          bottomLeftPoint.y
-        )
-      )
+      val bottomRightTriangle = sierpinski(newDepth, iterations, newLength, new Point(bottomLeftPoint.x + newLength, bottomLeftPoint.y))
 
       // top center triangle
-      val lines3 = sierpinski(
-        currentDepth + 1,
-        iterations,
-        length / 2,
-        new Point(
-          bottomLeftPoint.x + (length / 4),
-          bottomLeftPoint.y - (length / 2)
-        )
-      )
+      val topCenterTriangle = sierpinski(newDepth, iterations, newLength, new Point(bottomLeftPoint.x + (newLength / 2), bottomLeftPoint.y - newLength))
+      
       // Merge and return the list of lines
-      lines1 ::: lines2 ::: lines3
+      bottomLeftTriangle ::: topCenterTriangle ::: bottomRightTriangle
     }
   }
 
