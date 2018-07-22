@@ -1,5 +1,5 @@
 import DrawingPrimitives.Point
-import Fractals.{Fractal, sierpinski}
+import Fractals.{Fractal, sierpinski, vicsek}
 import sdl2.Extras._
 import sdl2.SDL._
 
@@ -8,7 +8,7 @@ import scala.scalanative.native._
 object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
 
   var animator:       Animator =  _
-  var currentFractal: Fractal  =  sierpinski
+  var currentFractal: Fractal  =  vicsek
   var depth:          Int      =  0
 
   override def main(args: Array[String]): Unit = {
