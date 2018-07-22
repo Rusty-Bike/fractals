@@ -22,5 +22,19 @@ object DrawingPrimitives {
     }
   }
 
+  case class Square(bottomLeftPoint: Point, length: Int) {
+    def toLines: List[LineSegment] = {
+      val topLeftPoint     = bottomLeftPoint.decY(length)
+      val topRightPoint    = topLeftPoint.incX(length)
+      val bottomRightPoint = topRightPoint.incY(length)
+
+      val leftLine   = new LineSegment(bottomLeftPoint,  topLeftPoint)
+      val rightLine  = new LineSegment(bottomRightPoint, topRightPoint)
+      val topLine    = new LineSegment(topLeftPoint,     topRightPoint)
+      val bottomLine = new LineSegment(bottomLeftPoint,  bottomRightPoint)
+
+      List(bottomLine, topLine, leftLine, rightLine)
+    }
+  }
 }
 
