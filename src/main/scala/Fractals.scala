@@ -1,4 +1,3 @@
-import Fractals.{lines, renderer}
 import sdl2.SDL._
 import sdl2.Extras._
 import sdl2.SDL
@@ -42,8 +41,7 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
   type Fractal = (Int, Int, Int, Point) => List[LineSegment]
   
   var currentFractal: Fractal = sierpinski
-  
-  var lines: List[LineSegment] = _
+
   var depth: Int = 0
 
   case class Point(x: Int, y: Int) {
@@ -79,7 +77,6 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
       val newLength = length / 2
       
       // Call ourselves again on the three sub-triangles
-  
       val bottomLeftTriangle  = sierpinski(newDepth, iterations, newLength, bottomLeftPoint)
       val bottomRightTriangle = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.incX(newLength))
       val topCenterTriangle   = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.incX(newLength / 2).decY(newLength))
@@ -91,8 +88,7 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
 
 
   override def main(args: Array[String]): Unit = {
-    lines    = currentFractal(0, depth, 800, new Point(0, 799))
-    animator = new Animator(lines)
+    animator = new Animator(currentFractal(0, depth, 800, new Point(0, 799)))
 
     super.main(args)
   }
@@ -104,10 +100,8 @@ object Fractals extends SdlApp(c"Fractals", 800, 800) with App {
         System.exit(0)
       case SDL_KEYUP => {
         depth = (depth  + 1) % 8
-        lines = List()
-        lines = currentFractal(0, depth, 800, new Point(0, 799))
 
-        animator.lines = lines
+        animator.lines = currentFractal(0, depth, 800, new Point(0, 799))
         animator.reset()
       }
       case _ =>
