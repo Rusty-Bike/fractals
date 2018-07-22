@@ -1,8 +1,7 @@
-import sdl2.Extras.{SDL_INIT_VIDEO, SDL_QUIT, SDL_RENDERER_PRESENTVSYNC, SDL_WINDOWPOS_CENTERED, SDL_WINDOW_SHOWN}
+import sdl2.Extras.{SDL_INIT_VIDEO, SDL_RENDERER_PRESENTVSYNC, SDL_WINDOWPOS_CENTERED, SDL_WINDOW_SHOWN}
 import sdl2.SDL._
-import scala.scalanative.native._
 
-import scala.scalanative.native.{Ptr, UInt, stackalloc}
+import scala.scalanative.native.{Ptr, UInt, stackalloc, _}
 
 abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
   var window:   Ptr[SDL_Window]   = _
