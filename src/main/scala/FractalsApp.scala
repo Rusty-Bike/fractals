@@ -19,14 +19,18 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
 
   override def onEvent(event: Ptr[SDL_Event]): Unit = {
     event.type_ match {
-      case SDL_QUIT =>
+      case SDL_QUIT => {
         SDL_Quit()
         System.exit(0)
-      case SDL_KEYUP => {
-        depth = (depth  + 1) % 8
+      }
+      case SDL_MOUSEBUTTONDOWN => {
 
-        animator.lines = currentFractal(0, depth, 800, new Point(0, 799))
-        animator.reset()
+        if(event.button.button == SDL_BUTTON_LEFT) {
+          depth = (depth + 1) % 8
+
+          animator.lines = currentFractal(0, depth, 800, new Point(0, 799))
+          animator.reset()
+        } else if(event.button.button == SDL_BUTTON_RIGHT) {}
       }
       case _ =>
         ()
