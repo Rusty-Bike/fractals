@@ -15,8 +15,8 @@ object Fractals {
 
       // Call ourselves again on the three sub-triangles
       val bottomLeftTriangle  = sierpinski(newDepth, iterations, newLength, bottomLeftPoint)
-      val bottomRightTriangle = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.incX(newLength))
-      val topCenterTriangle   = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.incX(newLength / 2).decY(newLength))
+      val bottomRightTriangle = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength))
+      val topCenterTriangle   = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength / 2).moveUp(newLength))
 
       // Merge and return the list of lines
       bottomLeftTriangle ::: topCenterTriangle ::: bottomRightTriangle
@@ -33,11 +33,11 @@ object Fractals {
       val newLength = length / 3
 
       // Call ourselves again on the five sub-squares
-      val centerBox      = vicsek(newDepth, iterations, newLength, bottomLeftPoint.decY(newLength).incX(newLength))
-      val centerLeftBox  = vicsek(newDepth, iterations, newLength, bottomLeftPoint.decY(newLength))
-      val centerRightBox = vicsek(newDepth, iterations, newLength, bottomLeftPoint.decY(newLength).incX(newLength * 2))
-      val bottomBox      = vicsek(newDepth, iterations, newLength, bottomLeftPoint.incX(newLength))
-      val topBox         = vicsek(newDepth, iterations, newLength, bottomLeftPoint.incX(newLength).decY(newLength * 2))
+      val centerBox      = vicsek(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength).moveRight(newLength))
+      val centerLeftBox  = vicsek(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength))
+      val centerRightBox = vicsek(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength).moveRight(newLength * 2))
+      val bottomBox      = vicsek(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength))
+      val topBox         = vicsek(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength).moveUp(newLength * 2))
 
       // Merge and return the list of lines
       bottomBox ::: centerBox ::: centerLeftBox ::: topBox ::: centerRightBox 

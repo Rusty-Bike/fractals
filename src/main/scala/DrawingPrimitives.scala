@@ -1,22 +1,21 @@
 object DrawingPrimitives {
   case class Point(x: Int, y: Int) {
-    def incX(amount: Int): Point = copy(x = x + amount)
-    def decX(amount: Int): Point = copy(x = x - amount)
-
-    def incY(amount: Int): Point = copy(y = y + amount)
-    def decY(amount: Int): Point = copy(y = y - amount)
+    def moveRight(amount: Int): Point = copy(x = x + amount)
+    def moveLeft(amount: Int):  Point = copy(x = x - amount)
+    def moveDown(amount: Int):  Point = copy(y = y + amount)
+    def moveUp(amount: Int):    Point = copy(y = y - amount)
   }
 
-  class LineSegment(val start: Point, val end: Point)
+  case class LineSegment(start: Point, end: Point)
 
   case class Triangle(bottomLeftPoint: Point, length: Int) {
     def toLines: List[LineSegment] = {
-      val topPoint         = Point(bottomLeftPoint.x + (length / 2), bottomLeftPoint.y - length)
-      val bottomRightPoint = Point(bottomLeftPoint.x + length, bottomLeftPoint.y)
+      val topPoint         = bottomLeftPoint.moveRight(length / 2).moveUp(length)
+      val bottomRightPoint = bottomLeftPoint.moveRight(length)
 
-      val leftLine   = new LineSegment(bottomLeftPoint,  topPoint)
-      val rightLine  = new LineSegment(bottomRightPoint, topPoint)
-      val bottomLine = new LineSegment(bottomLeftPoint,  bottomRightPoint)
+      val leftLine   = LineSegment(bottomLeftPoint,  topPoint)
+      val rightLine  = LineSegment(bottomRightPoint, topPoint)
+      val bottomLine = LineSegment(bottomLeftPoint,  bottomRightPoint)
 
       List(bottomLine, leftLine, rightLine)
     }
@@ -24,14 +23,14 @@ object DrawingPrimitives {
 
   case class Square(bottomLeftPoint: Point, length: Int) {
     def toLines: List[LineSegment] = {
-      val topLeftPoint     = bottomLeftPoint.decY(length)
-      val topRightPoint    = topLeftPoint.incX(length)
-      val bottomRightPoint = topRightPoint.incY(length)
+      val topLeftPoint     = bottomLeftPoint.moveUp(length)
+      val topRightPoint    = topLeftPoint.moveRight(length)
+      val bottomRightPoint = topRightPoint.moveDown(length)
 
-      val leftLine   = new LineSegment(bottomLeftPoint,  topLeftPoint)
-      val rightLine  = new LineSegment(bottomRightPoint, topRightPoint)
-      val topLine    = new LineSegment(topLeftPoint,     topRightPoint)
-      val bottomLine = new LineSegment(bottomLeftPoint,  bottomRightPoint)
+      val leftLine   = LineSegment(bottomLeftPoint,  topLeftPoint)
+      val rightLine  = LineSegment(bottomRightPoint, topRightPoint)
+      val topLine    = LineSegment(topLeftPoint,     topRightPoint)
+      val bottomLine = LineSegment(bottomLeftPoint,  bottomRightPoint)
 
       List(bottomLine, topLine, leftLine, rightLine)
     }
