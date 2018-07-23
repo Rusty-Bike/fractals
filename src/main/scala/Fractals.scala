@@ -44,5 +44,26 @@ object Fractals {
     }
   }
 
+  def vicsekx(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+    val square = Square(bottomLeftPoint, length)
+
+    if(currentDepth == iterations) {
+      square.toLines
+    } else {
+      val newDepth = currentDepth + 1
+      val newLength = length / 3
+
+      // Call ourselves again on the five sub-squares
+      val centerBox      = vicsekx(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength).moveRight(newLength))
+      val topLeftBox     = vicsekx(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength * 2))
+      val topRightBox    = vicsekx(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength * 2).moveRight(newLength * 2))
+      val bottomLeftBox  = vicsekx(newDepth, iterations, newLength, bottomLeftPoint)
+      val bottomRightBox = vicsekx(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength * 2))
+
+      // Merge and return the list of lines
+      centerBox ::: bottomLeftBox ::: topRightBox ::: topLeftBox ::: bottomRightBox
+    }
+  }
+
 
 }
