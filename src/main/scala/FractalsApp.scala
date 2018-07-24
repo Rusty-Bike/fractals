@@ -13,7 +13,7 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
 
   override def main(args: Array[String]): Unit = {
     fractals = Array(sierpinski, vicsek, vicsekx)
-    animator = new Animator(getLinesOfCurrentFractal(0, depth, 800, new Point(0, 799)))
+    animator = new Animator(getLinesOfCurrentFractal(0, depth, 800, Point(0, 799)))
 
     super.main(args)
   }
@@ -25,18 +25,19 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
         System.exit(0)
       }
       case SDL_MOUSEBUTTONDOWN => {
+        event.button.button match {
+          case SDL_BUTTON_LEFT  => {
+            depth = (depth + 1) % 8
 
-        if(event.button.button == SDL_BUTTON_LEFT) {
-          depth = (depth + 1) % 8
+            animator.lines = getLinesOfCurrentFractal(0, depth, 800, Point(0, 799))
+            animator.reset()
+          }
+          case SDL_BUTTON_RIGHT => {
+            currentFractal = (currentFractal + 1) % fractals.length
 
-          animator.lines = getLinesOfCurrentFractal(0, depth, 800, new Point(0, 799))
-          animator.reset()
-        } else if(event.button.button == SDL_BUTTON_RIGHT) {
-          currentFractal = (currentFractal + 1) % fractals.length
-
-          animator.lines = getLinesOfCurrentFractal(0, depth, 800, new Point(0, 799))
-          animator.reset()
-
+            animator.lines = getLinesOfCurrentFractal(0, depth, 800, Point(0, 799))
+            animator.reset()
+          }
         }
       }
       case _ =>
@@ -45,8 +46,9 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   }
 
   def getLinesOfCurrentFractal(currentDepth: Int, maxDepth: Int, width: Int, bottomLeftPoint: Point): List[LineSegment] = {
-        fractals(currentFractal)(currentDepth, maxDepth, width, bottomLeftPoint)
+    fractals(currentFractal)(currentDepth, maxDepth, width, bottomLeftPoint)
   }
+
   override def onDraw(): Unit = {
     animator.draw(renderer)
     SDL_RenderPresent(renderer)
