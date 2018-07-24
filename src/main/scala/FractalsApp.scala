@@ -6,14 +6,14 @@ import sdl2.SDL._
 import scala.scalanative.native._
 
 object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
-  var fractals:       Array[Fractal] = _
-  var animator:       Animator       = _
-  var currentFractal: Int            = 0
-  var depth:          Int            = 0
+  var fractals:        Array[Fractal] = _
+  var fractalRenderer: Renderer       = _
+  var currentFractal:  Int            = 0
+  var depth:           Int            = 0
 
   override def main(args: Array[String]): Unit = {
     fractals = Array(sierpinski, vicsek, vicsekx)
-    animator = new Animator(getLinesOfCurrentFractal())
+    fractalRenderer = new Renderer(getLinesOfCurrentFractal())
 
     super.main(args)
   }
@@ -29,14 +29,20 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
           case SDL_BUTTON_LEFT  => {
             depth = (depth + 1) % 8
 
-            animator.lines = getLinesOfCurrentFractal()
-            animator.reset()
+            fractalRenderer.lines = getLinesOfCurrentFractal()
+            fractalRenderer.reset()
           }
           case SDL_BUTTON_RIGHT => {
             currentFractal = (currentFractal + 1) % fractals.length
 
-            animator.lines = getLinesOfCurrentFractal()
-            animator.reset()
+            fractalRenderer.lines = getLinesOfCurrentFractal()
+            fractalRenderer.reset()
+          }
+          case SDL_BUTTON_MIDDLE => {
+            fractalRenderer.animate = !fractalRenderer.animate
+
+            fractalRenderer.lines = getLinesOfCurrentFractal()
+            fractalRenderer.reset()
           }
         }
       }
@@ -46,11 +52,11 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   }
 
   def getLinesOfCurrentFractal(): List[LineSegment] = {
-    fractals(currentFractal)(0, depth, 800, Point(0, 799))
+    fractals(currentFractal)(0, depth, 800, Point(0, 798))
   }
 
   override def onDraw(): Unit = {
-    animator.draw(renderer)
+    fractalRenderer.draw(renderer)
     SDL_RenderPresent(renderer)
   }
 
