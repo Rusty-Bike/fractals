@@ -65,5 +65,25 @@ object Fractals {
     }
   }
 
+  def cantorDust(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+    val square = Square(bottomLeftPoint, length)
+    if(currentDepth == iterations) {
+      square.toLines
+    } else {
+      val newDepth  = currentDepth + 1
+      val newLength = length / 3
+
+      // Call ourselves again on the four inner squares
+      val bottomLeft = cantorDust(newDepth, iterations, newLength, bottomLeftPoint)
+      val topLeft = cantorDust(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength * 2))
+      val topRight = cantorDust(newDepth, iterations, newLength, bottomLeftPoint.moveUp(newLength * 2).moveRight(newLength * 2))
+      val bottomRight = cantorDust(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength * 2))
+
+      // Merge and return the list of lines
+      bottomLeft ::: topLeft ::: topRight ::: bottomRight
+
+    }
+  }
+
 
 }
