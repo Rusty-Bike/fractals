@@ -1,9 +1,10 @@
 import DrawingPrimitives.{LineSegment, Point}
-import Fractals.{Fractal, sierpinski, vicsek, vicsekx, cantorDust}
+import Fractals.{Fractal, cantorDust, sierpinski, vicsek, vicsekx, kochCurve}
 import sdl2.Extras._
 import sdl2.SDL._
 
 import scala.scalanative.native._
+import scala.util.Try
 
 object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   var fractals:        Array[Fractal] = _
@@ -12,7 +13,8 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   var depth:           Int            = 0
 
   override def main(args: Array[String]): Unit = {
-    fractals = Array(sierpinski, vicsek, vicsekx, cantorDust)
+    fractals = Array(sierpinski, vicsek, vicsekx, cantorDust, kochCurve)
+    currentFractal = Try(args(0).toInt).getOrElse(0)
     fractalRenderer = new Renderer(getLinesOfCurrentFractal())
 
     super.main(args)

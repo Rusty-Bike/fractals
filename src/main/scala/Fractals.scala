@@ -1,4 +1,4 @@
-import DrawingPrimitives.{LineSegment, Point, Square, Triangle}
+import DrawingPrimitives._
 
 object Fractals {
 
@@ -25,7 +25,7 @@ object Fractals {
 
   def vicsek(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
     val square = Square(bottomLeftPoint, length)
-    
+
     if(currentDepth == iterations) {
       square.toLines
     } else {
@@ -40,7 +40,7 @@ object Fractals {
       val topBox         = vicsek(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength).moveUp(newLength * 2))
 
       // Merge and return the list of lines
-      bottomBox ::: centerBox ::: centerLeftBox ::: topBox ::: centerRightBox 
+      bottomBox ::: centerBox ::: centerLeftBox ::: topBox ::: centerRightBox
     }
   }
 
@@ -85,5 +85,35 @@ object Fractals {
     }
   }
 
+  def kochCurve(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+    case class KochRetHelper(segments: List[LineSegment], endingPos: Vec2, endingDir: Vec2)
+
+    def drawASmallerKoch(startingPos: Vec2, actualDir: Vec2, iteration: Int, length: Double): KochRetHelper = {
+      def calculateKochPart(startingPos: Vec2, actualDir: Vec2, iteration: Int, length: Double): KochRetHelper = {
+        if(iteration == 0) {
+          val ending = startingPos + actualDir * (length / 3)
+          KochRetHelper(List(LineSegment(startingPos.toPoint, ending.toPoint)), ending, actualDir)
+        } else {
+          drawASmallerKoch(startingPos, actualDir, iteration -1, length / 3)
+        }
+      }
+
+      val firstSegment = calculateKochPart(startingPos, actualDir, iteration, length)
+      val secondSegment = calculateKochPart(firstSegment.endingPos, firstSegment.endingDir.rotate(-60), iteration, length)
+      val thirdSegment = calculateKochPart(secondSegment.endingPos, secondSegment.endingDir.rotate(120), iteration, length)
+      val fourthSegment = calculateKochPart(thirdSegment.endingPos, thirdSegment.endingDir.rotate(-60), iteration, length)
+
+      KochRetHelper(
+        firstSegment.segments ++ secondSegment.segments ++ thirdSegment.segments ++ fourthSegment.segments,
+        fourthSegment.endingPos,
+        fourthSegment.endingDir
+      )
+    }
+
+    val start = Vec2(bottomLeftPoint)
+    val dir = Vec2(1,0)
+
+    drawASmallerKoch(start, dir, iterations, length).segments
+  }
 
 }
