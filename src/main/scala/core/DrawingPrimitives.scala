@@ -1,3 +1,5 @@
+package core
+
 object DrawingPrimitives {
 
   case class Point(x: Int, y: Int) {
@@ -60,4 +62,3 @@ object DrawingPrimitives {
     }
   }
 }
-

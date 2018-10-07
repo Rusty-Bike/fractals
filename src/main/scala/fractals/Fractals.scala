@@ -1,4 +1,6 @@
-import DrawingPrimitives._
+package fractals
+
+import core.DrawingPrimitives._
 
 object Fractals {
 
@@ -86,55 +88,14 @@ object Fractals {
   }
 
   def kochCurve(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-    case class KochRetHelper(segments: List[LineSegment], endingPos: Vec2, endingDir: Vec2)
-
-    def drawASmallerKoch(startingPos: Vec2, actualDir: Vec2, iteration: Int, length: Double): KochRetHelper = {
-      def calculateKochPart(startingPos: Vec2, actualDir: Vec2, iteration: Int, length: Double): KochRetHelper = {
-        if (iteration == 0) {
-          val ending = startingPos + actualDir * (length / 3)
-          KochRetHelper(List(LineSegment(startingPos.toPoint, ending.toPoint)), ending, actualDir)
-        } else {
-          drawASmallerKoch(startingPos, actualDir, iteration - 1, length / 3)
-        }
-      }
-
-      val firstSegment = calculateKochPart(startingPos, actualDir, iteration, length)
-      val secondSegment = calculateKochPart(firstSegment.endingPos, firstSegment.endingDir.rotate(-60), iteration, length)
-      val thirdSegment = calculateKochPart(secondSegment.endingPos, secondSegment.endingDir.rotate(120), iteration, length)
-      val fourthSegment = calculateKochPart(thirdSegment.endingPos, thirdSegment.endingDir.rotate(-60), iteration, length)
-
-      KochRetHelper(
-        firstSegment.segments ++ secondSegment.segments ++ thirdSegment.segments ++ fourthSegment.segments,
-        fourthSegment.endingPos,
-        fourthSegment.endingDir
-      )
-    }
-
     val start = Vec2(bottomLeftPoint)
-    val dir = Vec2(1,0)
-
-    drawASmallerKoch(start, dir, iterations, length).segments
+    val rightDir = Vec2(1, 0)
+    Koch.curve(iterations)(currentDepth, start, rightDir, length).toList
   }
 
   def kochSnowflake(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
 
-    def loop(currentDepth: Int, start: Vec2, dir: Vec2, length: Double): List[LineSegment] = {
-      if (currentDepth == iterations) {
-        val end = start + dir * length
-        List(LineSegment(start.toPoint, end.toPoint))
-      } else {
-        val newDepth = currentDepth + 1
-        val newLength = length / 3
-
-        // _/\_ segments, 1st to 4th. Each starts at the end of the previous one _/\_
-        loop(newDepth, start, dir, newLength) ++
-        loop(newDepth, start + dir * newLength, dir.rotate(-60), newLength) ++
-        loop(newDepth, start + dir * newLength + dir.rotate(-60) * newLength, dir.rotate(60), newLength) ++
-        loop(newDepth, start + dir * (newLength * 2), dir, newLength)
-      }
-    }
-
-    val rightDir = Vec2(1,0)
+    val rightDir = Vec2(1, 0)
     val leftDir = Vec2(-1, 0)
     val upRightDir = rightDir.rotate(-60)
     val downRightDir = rightDir.rotate(60)
@@ -143,9 +104,11 @@ object Fractals {
 
     val newLength = length * 2 / 3
 
-    loop(currentDepth, actualBottomLeft + rightDir * newLength, leftDir, newLength) ++
-    loop(currentDepth, actualBottomLeft, upRightDir, newLength) ++
-    loop(currentDepth, actualBottomLeft + upRightDir * newLength, downRightDir, newLength)
+    val kochCurve = Koch.curve(iterations) _
+
+    kochCurve(currentDepth, actualBottomLeft + rightDir * newLength, leftDir, newLength).toList ++
+      kochCurve(currentDepth, actualBottomLeft, upRightDir, newLength) ++
+      kochCurve(currentDepth, actualBottomLeft + upRightDir * newLength, downRightDir, newLength)
   }
 
 

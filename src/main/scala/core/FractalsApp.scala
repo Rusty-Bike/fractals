@@ -1,5 +1,7 @@
-import DrawingPrimitives.{LineSegment, Point}
-import Fractals._
+package core
+
+import core.DrawingPrimitives.{LineSegment, Point}
+import fractals.Fractals._
 import sdl2.Extras._
 import sdl2.SDL._
 
