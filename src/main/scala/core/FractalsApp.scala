@@ -14,49 +14,46 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   var currentFractal:  Int            = 0
   var depth:           Int            = 0
 
+  def getLinesOfCurrentFractal: List[LineSegment] =
+    fractals(currentFractal)(0, depth, 800, Point(0, 798))
+
   override def main(args: Array[String]): Unit = {
-    fractals = Array(sierpinski, vicsek, vicsekx, cantorDust, kochCurve, kochSnowflake)
+    fractals = Array(sierpinski, vicsek, vicsekx, cantorDust, kochCurve, kochSnowflake, tree)
     currentFractal = Try(args(0).toInt).getOrElse(0)
-    fractalRenderer = new Renderer(getLinesOfCurrentFractal())
+    fractalRenderer = new Renderer(getLinesOfCurrentFractal)
 
     super.main(args)
   }
 
   override def onEvent(event: Ptr[SDL_Event]): Unit = {
     event.type_ match {
-      case SDL_QUIT => {
+      case SDL_QUIT =>
         SDL_Quit()
         System.exit(0)
-      }
-      case SDL_MOUSEBUTTONDOWN => {
+
+      case SDL_MOUSEBUTTONDOWN =>
         event.button.button match {
-          case SDL_BUTTON_LEFT  => {
+          case SDL_BUTTON_LEFT =>
             depth = (depth + 1) % 8
 
-            fractalRenderer.lines = getLinesOfCurrentFractal()
+            fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
-          }
-          case SDL_BUTTON_RIGHT => {
+
+          case SDL_BUTTON_RIGHT =>
             currentFractal = (currentFractal + 1) % fractals.length
 
-            fractalRenderer.lines = getLinesOfCurrentFractal()
+            fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
-          }
-          case SDL_BUTTON_MIDDLE => {
+
+          case SDL_BUTTON_MIDDLE =>
             fractalRenderer.animate = !fractalRenderer.animate
 
-            fractalRenderer.lines = getLinesOfCurrentFractal()
+            fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
-          }
         }
-      }
       case _ =>
         ()
     }
-  }
-
-  def getLinesOfCurrentFractal(): List[LineSegment] = {
-    fractals(currentFractal)(0, depth, 800, Point(0, 798))
   }
 
   override def onDraw(): Unit = {
@@ -64,6 +61,8 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
     SDL_RenderPresent(renderer)
   }
 
-  override def onIdle():    Unit = {}
+  override def onIdle(): Unit = {}
+
   override def onCleanup(): Unit = {}
+
 }

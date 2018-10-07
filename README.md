@@ -22,3 +22,5 @@ You can use middle mouse button to animate the actual fractal.
  - 2: vicsekx
  - 3: cantorDust
  - 4: kochCurve
+ - 5: kochSnowflake
+ - 6: Tree
