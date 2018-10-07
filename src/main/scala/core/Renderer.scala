@@ -1,10 +1,11 @@
-import DrawingPrimitives.LineSegment
+package core
+
+import core.DrawingPrimitives.LineSegment
 import sdl2.Extras.SDL_ALPHA_OPAQUE
 import sdl2.SDL
 import sdl2.SDL.{SDL_RenderClear, SDL_RenderDrawLine, SDL_SetRenderDrawColor}
 
-import scala.scalanative.native._
-import scala.scalanative.native.{CInt, Ptr, Word}
+import scala.scalanative.native.{CInt, Ptr, Word, _}
 
 class Renderer(var lines: List[LineSegment], var animate: Boolean = false) {
   val backgroundColor: (CInt, CInt, CInt) = (0, 0, 0)

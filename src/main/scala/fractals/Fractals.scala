@@ -1,4 +1,6 @@
-import DrawingPrimitives._
+package fractals
+
+import core.DrawingPrimitives._
 
 object Fractals {
 
@@ -86,34 +88,28 @@ object Fractals {
   }
 
   def kochCurve(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-    case class KochRetHelper(segments: List[LineSegment], endingPos: Vec2, endingDir: Vec2)
-
-    def drawASmallerKoch(startingPos: Vec2, actualDir: Vec2, iteration: Int, length: Double): KochRetHelper = {
-      def calculateKochPart(startingPos: Vec2, actualDir: Vec2, iteration: Int, length: Double): KochRetHelper = {
-        if(iteration == 0) {
-          val ending = startingPos + actualDir * (length / 3)
-          KochRetHelper(List(LineSegment(startingPos.toPoint, ending.toPoint)), ending, actualDir)
-        } else {
-          drawASmallerKoch(startingPos, actualDir, iteration -1, length / 3)
-        }
-      }
-
-      val firstSegment = calculateKochPart(startingPos, actualDir, iteration, length)
-      val secondSegment = calculateKochPart(firstSegment.endingPos, firstSegment.endingDir.rotate(-60), iteration, length)
-      val thirdSegment = calculateKochPart(secondSegment.endingPos, secondSegment.endingDir.rotate(120), iteration, length)
-      val fourthSegment = calculateKochPart(thirdSegment.endingPos, thirdSegment.endingDir.rotate(-60), iteration, length)
-
-      KochRetHelper(
-        firstSegment.segments ++ secondSegment.segments ++ thirdSegment.segments ++ fourthSegment.segments,
-        fourthSegment.endingPos,
-        fourthSegment.endingDir
-      )
-    }
-
     val start = Vec2(bottomLeftPoint)
-    val dir = Vec2(1,0)
-
-    drawASmallerKoch(start, dir, iterations, length).segments
+    val rightDir = Vec2(1, 0)
+    Koch.curve(iterations)(currentDepth, start, rightDir, length).toList
   }
+
+  def kochSnowflake(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+
+    val rightDir = Vec2(1, 0)
+    val leftDir = Vec2(-1, 0)
+    val upRightDir = rightDir.rotate(-60)
+    val downRightDir = rightDir.rotate(60)
+
+    val actualBottomLeft = Vec2(bottomLeftPoint) + upRightDir * (length / 3)
+
+    val newLength = length * 2 / 3
+
+    val kochCurve = Koch.curve(iterations) _
+
+    kochCurve(currentDepth, actualBottomLeft + rightDir * newLength, leftDir, newLength).toList ++
+      kochCurve(currentDepth, actualBottomLeft, upRightDir, newLength) ++
+      kochCurve(currentDepth, actualBottomLeft + upRightDir * newLength, downRightDir, newLength)
+  }
+
 
 }
