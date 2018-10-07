@@ -1,4 +1,5 @@
 object DrawingPrimitives {
+
   case class Point(x: Int, y: Int) {
     def moveRight(amount: Int): Point = copy(x = x + amount)
     def moveLeft(amount: Int):  Point = copy(x = x - amount)
@@ -7,17 +8,14 @@ object DrawingPrimitives {
   }
 
   case class Vec2(x: Double, y: Double) {
-    def *(k: Double) = Vec2(x*k, y*k)
+    def *(k: Double) = Vec2(x * k, y * k)
     def +(other: Vec2) = Vec2(x + other.x, y + other.y)
-    def length2: Double = x*x + y*y
-    def length: Double = Math.sqrt(length2)
-    def normalize: Vec2 = {
-      val l = length
+    def length: Double = Math.sqrt(x * x + y * y)
+    def normalize: Vec2 =
       Vec2((x / length).toInt, (y / length).toInt)
-    }
 
     def rotate(degrees: Double): Vec2 = {
-      val radians = degrees * (Math.PI/180)
+      val radians = degrees * (Math.PI / 180)
       val nx = x * Math.cos(radians) - y * Math.sin(radians)
       val ny = x * Math.sin(radians) + y * Math.cos(radians)
       Vec2(nx, ny)
