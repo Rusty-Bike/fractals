@@ -6,7 +6,7 @@ Sierpinski Triangle
 Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
 
 ## First runners
-You need to install llvm and sdl2 to your system. (on mac `brew install llvm sdl2` works)
+You need to install llvm, sdl2 and bdw-gc to your system. (on mac `brew install llvm sdl2 bdw-gc` works)
 After that `sbt run` will start and run the project.
 
 For the implemented fractals you can add the number of the implementation as command line parameter. (for ex. `sbt "run 3"`)
@@ -24,3 +24,4 @@ You can use middle mouse button to animate the actual fractal.
  - 4: kochCurve
  - 5: kochSnowflake
  - 6: Tree
+ - 7: sierpinski carpet

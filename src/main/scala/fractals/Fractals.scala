@@ -135,4 +135,49 @@ object Fractals {
 
     loop(currentDepth, length / 3, start, up)
   }
+
+  def sierpinskiCarpet(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+
+    def getActualBottomLeftPoint(currentDepth: Int, bottomLeftPoint: Point) = {
+      if(currentDepth == 0) {
+        Point(length / 3, length * 2 / 3)
+      } else {
+        bottomLeftPoint
+      }
+    }
+    def getActualLength(currentDepth: Int, length: Int) = {
+      if(currentDepth == 0) {
+        length / 3
+      } else {
+        length
+      }
+    }
+
+    //In the very first iteration we need to calculate the proper beginning position and size of the first square
+    val actualBottomLeftPoint = getActualBottomLeftPoint(currentDepth, bottomLeftPoint)
+    val actualLength = getActualLength(currentDepth, length)
+
+    val square = Square(actualBottomLeftPoint, actualLength)
+
+    //Second condition ensures we don't try to calculate squares that are too small to form
+    if(currentDepth == iterations || actualLength < 3) {
+      square.toLines
+    } else {
+      val newDepth = currentDepth + 1
+      val newLength = actualLength / 3
+
+      // Call ourselves again on the eight sub-squares
+      val leftBox         = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveUp(actualLength * 1 / 3).moveLeft(actualLength * 2 / 3))
+      val topLeftBox      = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveUp(actualLength * 4 / 3).moveLeft(actualLength * 2 / 3))
+      val topBox          = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveUp(actualLength * 4 / 3).moveRight(actualLength * 1 / 3))
+      val topRightBox     = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveUp(actualLength * 4 / 3).moveRight(actualLength * 4 / 3))
+      val rightBox        = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveUp(actualLength * 1 / 3).moveRight(actualLength * 4 / 3))
+      val bottomRightBox  = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveDown(actualLength * 2 / 3).moveRight(actualLength * 4 / 3))
+      val bottomBox       = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveDown(actualLength * 2 / 3).moveRight(actualLength * 1 / 3))
+      val bottomLeftBox   = sierpinskiCarpet(newDepth, iterations, newLength, actualBottomLeftPoint.moveDown(actualLength * 2 / 3).moveLeft(actualLength * 2 / 3))
+
+      //Merge and return the list of lines
+      square.toLines ::: leftBox  ::: topLeftBox ::: topBox ::: topRightBox ::: rightBox ::: bottomRightBox ::: bottomBox ::: bottomLeftBox
+    }
+  }
 }

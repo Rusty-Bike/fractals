@@ -18,7 +18,7 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
     fractals(currentFractal)(0, depth, 800, Point(0, 798))
 
   override def main(args: Array[String]): Unit = {
-    fractals = Array(sierpinski, vicsek, vicsekx, cantorDust, kochCurve, kochSnowflake, tree)
+    fractals = Array(sierpinski, vicsek, vicsekx, cantorDust, kochCurve, kochSnowflake, tree, sierpinskiCarpet)
     currentFractal = Try(args(0).toInt).getOrElse(0)
     fractalRenderer = new Renderer(getLinesOfCurrentFractal)
 
