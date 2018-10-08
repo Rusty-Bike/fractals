@@ -112,4 +112,27 @@ object Fractals {
   }
 
 
+  def tree(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+
+    val branchAngle = 20
+
+    def loop(depth: Int, length: Int, start: Vec2, dir: Vec2): List[LineSegment] =
+      if (depth == iterations)
+        List(LineSegment(start.toPoint, (start + (dir * length)).toPoint))
+      else {
+        val newLength = length * 2 / 3
+        val end = start + dir * length
+
+        val trunk = LineSegment(start.toPoint, end.toPoint)
+        val right = loop(depth + 1, newLength, end, dir.rotate(branchAngle))
+        val left = loop(depth + 1, newLength, end, dir.rotate(-branchAngle))
+
+        trunk +: right ::: left
+      }
+
+    val up = Vec2(0, -1)
+    val start = Vec2(bottomLeftPoint.copy(x = length / 2))
+
+    loop(currentDepth, length / 3, start, up)
+  }
 }
