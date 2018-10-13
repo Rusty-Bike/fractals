@@ -10,22 +10,22 @@ You need to install llvm, sdl2 and bdw-gc to your system.
 
 ### MacOS
 
-```bash
+```
 brew install llvm sdl2 bdw-gc
 ```
 
 ### Linux (tested on Ubuntu 18.04)
 
-```bash
-(sudo) apt install llvm
-(sudo) apt install libsdl2-dev
-(sudo) apt install libgc-dev
+```
+sudo apt install llvm
+sudo apt install libsdl2-dev
+sudo apt install libgc-dev
 ```
 
 It is also needed clang and libunwind-dev.
-```bash
-(sudo) apt install clang
-(sudo) apt install libunwind-dev
+```
+sudo apt install clang
+sudo apt install libunwind-dev
 ```
 
 ### Running
