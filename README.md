@@ -8,11 +8,13 @@ Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpi
 ## First runners
 You need to install llvm, sdl2 and bdw-gc to your system.
 
-### On MacOS
+### MacOS
 
-`brew install llvm sdl2 bdw-gc`
+```bash
+brew install llvm sdl2 bdw-gc
+```
 
-### On Linux (tested on Ubuntu 18.04)
+### Linux (tested on Ubuntu 18.04)
 
 ```bash
 (sudo) apt install llvm
