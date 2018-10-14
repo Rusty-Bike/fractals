@@ -1,6 +1,6 @@
 package core
 
-import sdl2.Extras.{SDL_INIT_VIDEO, SDL_RENDERER_PRESENTVSYNC, SDL_WINDOWPOS_CENTERED, SDL_WINDOW_SHOWN}
+import sdl2.Extras.{SDL_INIT_VIDEO, SDL_RENDERER_PRESENTVSYNC, SDL_WINDOWPOS_CENTERED, SDL_WINDOW_SHOWN, SDL_Color}
 import sdl2.SDL._
 import sdl2.ttf.SDL_ttf._
 
@@ -10,6 +10,8 @@ abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
   var window:   Ptr[SDL_Window]   = _
   var renderer: Ptr[SDL_Renderer] = _
   var font: Ptr[TTF_Font] = _
+
+  val fontColor = SDL_Color(255.toUByte, 255.toUByte, 255.toUByte, 255.toUByte) // RGB color white: (255, 255, 255) 
 
   def init(): Unit = {
 
@@ -28,7 +30,7 @@ abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
     if(font == null) {
       println("TTF_OpenFont failed: %s".format(fromCString(SDL_GetError())))
       sys.exit(-1)
-}
+    }
 
   }
 
