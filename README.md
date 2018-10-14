@@ -41,10 +41,33 @@ You can use middle mouse button to animate the actual fractal.
 ## List of implemented fractals
 
  - 0: sierpinski
+ ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
+
  - 1: vicsek
+  ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
+
  - 2: vicsekx
- - 3: cantorDust
- - 4: kochCurve
- - 5: kochSnowflake
- - 6: Tree
- - 7: sierpinski carpet
+ ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek-x.png)
+
+- 3: cantorDust
+ ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/cantor-dust.png)
+
+- 4: kochCurve
+ ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-curve.png)
+
+- 5: kochSnowflake
+ ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-snowflake.png)
+
+- 6: Tree
+ ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/tree.png)
+
+- 7: sierpinski carpet
+ ![Sierpinski
+Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski-carpet.png)
