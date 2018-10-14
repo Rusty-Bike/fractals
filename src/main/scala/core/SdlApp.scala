@@ -22,7 +22,14 @@ abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
       println("TTF_Init: %s".format(fromCString(SDL_GetError())))
       sys.exit(-1)
     }
-    
+
+    font = TTF_OpenFont(c"fonts/OpenSans-Regular.ttf", 20)
+    // If TTF_OpenFont failed to load, the program exites. Again we can ignore the error and not show any text.
+    if(font == null) {
+      println("TTF_OpenFont failed: %s".format(fromCString(SDL_GetError())))
+      sys.exit(-1)
+}
+
   }
 
   def onEvent(event: Ptr[SDL_Event]): Unit
