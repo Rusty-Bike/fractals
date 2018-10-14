@@ -2,6 +2,7 @@ package core
 
 import sdl2.Extras.{SDL_INIT_VIDEO, SDL_RENDERER_PRESENTVSYNC, SDL_WINDOWPOS_CENTERED, SDL_WINDOW_SHOWN}
 import sdl2.SDL._
+import sdl2.ttf.SDL_ttf._
 
 import scala.scalanative.native.{Ptr, UInt, stackalloc, _}
 
