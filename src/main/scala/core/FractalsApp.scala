@@ -15,7 +15,7 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   var depth:           Int            = 0
 
   def getLinesOfCurrentFractal: List[LineSegment] =
-    fractals(currentFractal)(0, depth, 800, Point(0, 798))
+    fractals(currentFractal)(0, depth, 770, Point(0, 798)) // Changed third argument from 800 to 770 to give space to text
 
   override def main(args: Array[String]): Unit = {
     fractals = Array(sierpinski, vicsek, vicsekx, cantorDust, kochCurve, kochSnowflake, tree, sierpinskiCarpet)
@@ -35,18 +35,21 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
         event.button.button match {
           case SDL_BUTTON_LEFT =>
             depth = (depth + 1) % 8
+            infoText.updateDepth(depth)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
 
           case SDL_BUTTON_RIGHT =>
             currentFractal = (currentFractal + 1) % fractals.length
+            infoText.updateFractalName(currentFractal)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
 
           case SDL_BUTTON_MIDDLE =>
             fractalRenderer.animate = !fractalRenderer.animate
+            infoText.updateAnimationState(fractalRenderer.animate)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
@@ -57,7 +60,11 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   }
 
   override def onDraw(): Unit = {
+    infoText.updateLinesNumber(fractalRenderer.linesToDraw)
+
+
     fractalRenderer.draw(renderer)
+    infoText.draw(font, renderer)  // Must be after fractalRenderer.draw otherwise the text will be overwritten
     SDL_RenderPresent(renderer)
   }
 
