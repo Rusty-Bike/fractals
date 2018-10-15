@@ -35,18 +35,22 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
         event.button.button match {
           case SDL_BUTTON_LEFT =>
             depth = (depth + 1) % 8
+            infoText.updateDepth(depth)
+            infoText.updateLinesNumber(getLinesOfCurrentFractal.length)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
 
           case SDL_BUTTON_RIGHT =>
             currentFractal = (currentFractal + 1) % fractals.length
+            infoText.updateFractalName(currentFractal)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
 
           case SDL_BUTTON_MIDDLE =>
             fractalRenderer.animate = !fractalRenderer.animate
+            infoText.updateAnimationState(fractalRenderer.animate)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()

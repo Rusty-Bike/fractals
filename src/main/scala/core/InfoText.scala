@@ -15,25 +15,41 @@ class InfoText(fontColor: SDL_Color) {
     this(SDL_Color(255.toUByte, 255.toUByte, 255.toUByte, 255.toUByte)) // RGB color white: (255, 255, 255)
   }
 
-  var names: Array[CString] = Array(c"Sierpinski", c"Vicsek", c"Vicsekx", c"Cantor Dust", c"Koch Curve", c"Koch Snowflake", c"Tree", c"Sierpinski Carpet")
+  var names: Array[String] = Array("Sierpinski", "Vicsek", "Vicsekx", "Cantor Dust", "Koch Curve", "Koch Snowflake", "Tree", "Sierpinski Carpet")
 
-  def getFractalName(index: Int) = names(index)
 
-  var infoName = c"Sierpinski" // Default value
+  var infoName: String = "Sierpinski" // Default value
+  var isAnimationOn: String = "off"
+  var depth: Int = 0
+  var linesNumber: Int = 1
+  var text: CString = c"hello world"
 
-  def changeFractalName(currentFractal: Int) = {
-    infoName = getFractalName(currentFractal)
-  }
+  def updateFractalName(currentFractal: Int) = infoName = names(currentFractal)
+
+  def updateDepth(d: Int) = depth = d
+
+  def updateAnimationState(b: Boolean) = if (b) isAnimationOn = "On" else isAnimationOn = "Off"
+
+  def updateLinesNumber(n: Int) = linesNumber = n
+
 
   def draw(font: Ptr[TTF_Font], renderer: Ptr[SDL.SDL_Renderer]) = {
     // Prepare the texture with the text
-    val message = TTF_RenderText_Solid(font, infoName, fontColor)
-    var texture = SDL_CreateTextureFromSurface(renderer, message)
-    val w = stackalloc[CInt]
-    val h = stackalloc[CInt]
-    SDL_QueryTexture(texture, null, null, w, h)
-    val rect = stackalloc[SDL_Rect].init(0, 0, !w, !h)
-    SDL_RenderCopy(renderer, texture, null, rect)
+
+    Zone { implicit z =>
+      //var info = string.strcat(infoName, c" Depth: ")
+      var info : CString = toCString(infoName + " Depth: " + depth + " Animation: " + isAnimationOn + " Total Lines: " + linesNumber)(z)
+      val message = TTF_RenderText_Solid(font, info, fontColor)
+      var texture = SDL_CreateTextureFromSurface(renderer, message)
+      val w = stackalloc[CInt]
+      val h = stackalloc[CInt]
+      SDL_QueryTexture(texture, null, null, w, h)
+      val rect = stackalloc[SDL_Rect].init(0, 0, !w, !h)
+      SDL_RenderCopy(renderer, texture, null, rect)
+
+    }
+
+
   }
 
 
