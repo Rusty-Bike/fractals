@@ -8,11 +8,11 @@ import sdl2.ttf.SDL_ttf._
 import scala.scalanative.native._
 
 
-class InfoText(fontColor: SDL_Color) {
+class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
 
   // Constructor OverLoad. If InfoText is instantiated without a color, fontColor is white.
-  def this(){
-    this(SDL_Color(255.toUByte, 255.toUByte, 255.toUByte, 255.toUByte)) // RGB color white: (255, 255, 255)
+  def this(width: Int, height: Int){
+    this(SDL_Color(255.toUByte, 255.toUByte, 255.toUByte, 255.toUByte), width, height) // RGB color white: (255, 255, 255)
   }
 
   var names: Array[String] = Array("Sierpinski", "Vicsek", "Vicsekx", "Cantor Dust", "Koch Curve", "Koch Snowflake", "Tree", "Sierpinski Carpet")
@@ -37,15 +37,25 @@ class InfoText(fontColor: SDL_Color) {
     // Prepare the texture with the text
 
     Zone { implicit z =>
-      //var info = string.strcat(infoName, c" Depth: ")
-      var info : CString = toCString(infoName + " Depth: " + depth + " Animation: " + isAnimationOn + " Total Lines: " + linesNumber)(z)
-      val message = TTF_RenderText_Solid(font, info, fontColor)
-      var texture = SDL_CreateTextureFromSurface(renderer, message)
       val w = stackalloc[CInt]
       val h = stackalloc[CInt]
+
+      var nameAndDepthInfo : CString = toCString(infoName + "   Depth: " + depth)(z)
+      val message = TTF_RenderText_Solid(font, nameAndDepthInfo, fontColor)
+      var texture = SDL_CreateTextureFromSurface(renderer, message)
+
+
       SDL_QueryTexture(texture, null, null, w, h)
-      val rect = stackalloc[SDL_Rect].init(0, 0, !w, !h)
+      var rect = stackalloc[SDL_Rect].init(10, 0, !w, !h)
       SDL_RenderCopy(renderer, texture, null, rect)
+
+      var animationAndLinesInfo : CString = toCString("Animation: " + isAnimationOn + "    Number of Lines: " + linesNumber)(z)
+      val message2 = TTF_RenderText_Solid(font, animationAndLinesInfo, fontColor)
+      var texture2 = SDL_CreateTextureFromSurface(renderer, message2)
+
+      SDL_QueryTexture(texture2, null, null, w, h)
+      rect = stackalloc[SDL_Rect].init(width - 10 - !w, 0, !w, !h) 
+      SDL_RenderCopy(renderer, texture2, null, rect)
 
     }
 

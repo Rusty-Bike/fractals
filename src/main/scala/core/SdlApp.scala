@@ -11,8 +11,8 @@ abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
   var renderer: Ptr[SDL_Renderer] = _
   var font: Ptr[TTF_Font] = _
 
-  val infoText: InfoText = new InfoText
-  
+  val infoText: InfoText = new InfoText(width, height)
+
   def init(): Unit = {
 
     SDL_Init(SDL_INIT_VIDEO)
