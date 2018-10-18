@@ -54,14 +54,12 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
         event.button.button match {
           case SDL_BUTTON_LEFT =>
             data = data.copy(depth = (data.depth + 1 ) % 8)
-            infoText.updateDepth(data.depth)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
 
           case SDL_BUTTON_RIGHT =>
             data = data.copy(currentFractal = (data.currentFractal + 1) % data.fractals.length)
-            infoText.updateFractalName(data.currentFractal)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
@@ -83,7 +81,7 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
 
 
     fractalRenderer.draw(renderer)
-    infoText.draw(font, renderer)  // Must be after fractalRenderer.draw otherwise the text will be overwritten
+    infoText.draw(data, font, renderer)  // Must be after fractalRenderer.draw otherwise the text will be overwritten
     SDL_RenderPresent(renderer)
   }
 
