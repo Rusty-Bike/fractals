@@ -8,18 +8,37 @@ import sdl2.SDL._
 import scala.scalanative.native._
 import scala.util.Try
 
+case class FractalInfo(val name: String, code: Fractal)
+case class Data(val fractals: Array[FractalInfo], val currentFractal: Int, val depth: Int )
+
 object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
-  var fractals:        Array[Fractal] = _
+  var data: Data = _
   var fractalRenderer: Renderer       = _
-  var currentFractal:  Int            = 0
-  var depth:           Int            = 0
+  var initialFractal:  Int            = 0
 
   def getLinesOfCurrentFractal: List[LineSegment] =
-    fractals(currentFractal)(0, depth, 770, Point(0, 798)) // Changed third argument from 800 to 770 to give space to text
+    data.fractals(data.currentFractal).code(0, data.depth, 770, Point(0, 798)) // Changed third argument from 800 to 770 to give space to text
 
   override def main(args: Array[String]): Unit = {
-    fractals = Array(sierpinski, vicsek, vicsekx, cantorDust, kochCurve, kochSnowflake, tree, sierpinskiCarpet)
-    currentFractal = Try(args(0).toInt).getOrElse(0)
+
+    initialFractal = Try(args(0).toInt).getOrElse(0)
+
+    data = Data(
+      Array(
+        FractalInfo("Sierpinski",        sierpinski),
+        FractalInfo("Vicsek",            vicsek),
+        FractalInfo("Vicsek X",          vicsekx),
+        FractalInfo("Cantor Dust",       cantorDust),
+        FractalInfo("Koch Curve",        kochCurve),
+        FractalInfo("Koch Snowflake",    kochSnowflake),
+        FractalInfo("Tree",              tree),
+        FractalInfo("Sierpinski Carpet", sierpinskiCarpet)
+      ),
+      initialFractal,
+      0
+    )
+
+
     fractalRenderer = new Renderer(getLinesOfCurrentFractal)
 
     super.main(args)
@@ -34,15 +53,15 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
       case SDL_MOUSEBUTTONDOWN =>
         event.button.button match {
           case SDL_BUTTON_LEFT =>
-            depth = (depth + 1) % 8
-            infoText.updateDepth(depth)
+            data = data.copy(depth = (data.depth + 1 ) % 8)
+            infoText.updateDepth(data.depth)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
 
           case SDL_BUTTON_RIGHT =>
-            currentFractal = (currentFractal + 1) % fractals.length
-            infoText.updateFractalName(currentFractal)
+            data = data.copy(currentFractal = (data.currentFractal + 1) % data.fractals.length)
+            infoText.updateFractalName(data.currentFractal)
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
