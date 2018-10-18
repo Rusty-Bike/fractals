@@ -7,12 +7,10 @@ import sdl2.ttf.SDL_ttf._
 
 import scala.scalanative.native._
 
-
 class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
   var numberOfLines = 0
 
-  def updateLinesNumber(linesToDraw: CInt) = numberOfLines = linesToDraw
-
+  def updateLinesNumber(linesToDraw: CInt): Unit = numberOfLines = linesToDraw
 
   // Constructor OverLoad. If InfoText is instantiated without a color, fontColor is white.
   def this(width: Int, height: Int){
@@ -21,9 +19,7 @@ class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
 
   var isAnimationOn: String  = "off"
 
-
   def updateAnimationState(b: Boolean):       Unit = isAnimationOn = if(b) "On" else "Off"
-
 
   def draw(data: Data, font: Ptr[TTF_Font], renderer: Ptr[SDL.SDL_Renderer]): CInt = {
     // Prepare the texture with the text
@@ -32,17 +28,17 @@ class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
       val w = stackalloc[CInt]
       val h = stackalloc[CInt]
 
-      val nameAndDepthInfo : CString = toCString(data.fractals(data.currentFractal).name + "   Depth: " + data.depth)(z)
+      val nameAndDepthInfo : CString = toCString(s"${data.fractals(data.currentFractal).name} Depth: ${data.depth}")(z)
 
       val message = TTF_RenderText_Solid(font, nameAndDepthInfo, fontColor)
       val texture = SDL_CreateTextureFromSurface(renderer, message)
-
 
       SDL_QueryTexture(texture, null, null, w, h)
       var rect = stackalloc[SDL_Rect].init(10, 0, !w, !h)
       SDL_RenderCopy(renderer, texture, null, rect)
 
-      val animationAndLinesInfo: CString          = toCString("Animation: " + isAnimationOn + "    Number of Lines: " + numberOfLines)(z)
+      val animationAndLinesInfo: CString = toCString(s"Animation: ${isAnimationOn}    Number of Lines: ${numberOfLines}")(z)
+
       val message2:              Ptr[SDL_Surface] = TTF_RenderText_Solid(font, animationAndLinesInfo, fontColor)
       var texture2:              Ptr[SDL_Texture] = SDL_CreateTextureFromSurface(renderer, message2)
 

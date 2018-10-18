@@ -43,6 +43,14 @@ class Renderer(var lines: List[LineSegment], var animate: Boolean = false) {
     }
 
     // Grab 'currentStep' number of lines from the line pile and draw them.
-    lines.view.take(linesToDraw).foreach(linesegment => SDL_RenderDrawLine(renderer, linesegment.start.x, linesegment.start.y, linesegment.end.x, linesegment.end.y))
+    lines.view.take(linesToDraw).foreach { linesegment =>
+      SDL_RenderDrawLine(
+        renderer,
+        linesegment.start.x,
+        linesegment.start.y,
+        linesegment.end.x,
+        linesegment.end.y
+      )
+    }
   }
 }
