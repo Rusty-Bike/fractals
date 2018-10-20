@@ -1,7 +1,8 @@
 package core
 
-object DrawingPrimitives {
+import core.Drawing.Turtle
 
+object DrawingPrimitives {
   case class Point(x: Int, y: Int) {
     def moveRight(amount: Int): Point = copy(x = x + amount)
     def moveLeft(amount: Int):  Point = copy(x = x - amount)
@@ -35,29 +36,27 @@ object DrawingPrimitives {
 
   case class Triangle(bottomLeftPoint: Point, length: Int) {
     def toLines: List[LineSegment] = {
-      val topPoint         = bottomLeftPoint.moveRight(length / 2).moveUp(length)
-      val bottomRightPoint = bottomLeftPoint.moveRight(length)
-
-      val leftLine   = LineSegment(bottomLeftPoint,  topPoint)
-      val rightLine  = LineSegment(bottomRightPoint, topPoint)
-      val bottomLine = LineSegment(bottomLeftPoint,  bottomRightPoint)
-
-      List(bottomLine, leftLine, rightLine)
+      Turtle(bottomLeftPoint, -60, List())
+        .forward(length)
+        .setHeading(60)
+        .forward(length)
+        .setHeading(-180)
+        .forward(length)
+        .path
     }
   }
 
   case class Square(bottomLeftPoint: Point, length: Int) {
     def toLines: List[LineSegment] = {
-      val topLeftPoint     = bottomLeftPoint.moveUp(length)
-      val topRightPoint    = topLeftPoint.moveRight(length)
-      val bottomRightPoint = topRightPoint.moveDown(length)
-
-      val leftLine   = LineSegment(bottomLeftPoint,  topLeftPoint)
-      val rightLine  = LineSegment(bottomRightPoint, topRightPoint)
-      val topLine    = LineSegment(topLeftPoint,     topRightPoint)
-      val bottomLine = LineSegment(bottomLeftPoint,  bottomRightPoint)
-
-      List(bottomLine, topLine, leftLine, rightLine)
+      Turtle(bottomLeftPoint, -90, List())
+        .forward(length)
+        .setHeading(0)
+        .forward(length)
+        .setHeading(90)
+        .forward(length)
+        .setHeading(-180)
+        .forward(length)
+        .path
     }
   }
 }

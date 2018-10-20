@@ -7,10 +7,8 @@ object Fractals {
   type Fractal = (Int, Int, Int, Point) => List[LineSegment]
 
   def sierpinski(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-    val triangle = Triangle(bottomLeftPoint, length)
-
     if (currentDepth == iterations) {
-      triangle.toLines
+      Triangle(bottomLeftPoint, length).toLines
     } else {
       val newDepth  = currentDepth + 1
       val newLength = length / 2
@@ -18,7 +16,7 @@ object Fractals {
       // Call ourselves again on the three sub-triangles
       val bottomLeftTriangle  = sierpinski(newDepth, iterations, newLength, bottomLeftPoint)
       val bottomRightTriangle = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength))
-      val topCenterTriangle   = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength / 2).moveUp(newLength))
+      val topCenterTriangle   = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength / 2).moveUp((newLength * .87f).toInt))
 
       // Merge and return the list of lines
       bottomLeftTriangle ::: topCenterTriangle ::: bottomRightTriangle
@@ -111,9 +109,7 @@ object Fractals {
       kochCurve(currentDepth, actualBottomLeft + upRightDir * newLength, downRightDir, newLength)
   }
 
-
   def tree(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-
     val branchAngle = 20
 
     def loop(depth: Int, length: Int, start: Vec2, dir: Vec2): List[LineSegment] =
@@ -137,7 +133,6 @@ object Fractals {
   }
 
   def sierpinskiCarpet(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-
     def getActualBottomLeftPoint(currentDepth: Int, bottomLeftPoint: Point) = {
       if(currentDepth == 0) {
         Point(length / 3, length * 2 / 3)
