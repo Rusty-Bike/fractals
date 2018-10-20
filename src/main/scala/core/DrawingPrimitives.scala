@@ -1,5 +1,7 @@
 package core
 
+import core.Drawing.Turtle
+
 object DrawingPrimitives {
 
   case class Point(x: Int, y: Int) {
@@ -35,14 +37,13 @@ object DrawingPrimitives {
 
   case class Triangle(bottomLeftPoint: Point, length: Int) {
     def toLines: List[LineSegment] = {
-      val topPoint         = bottomLeftPoint.moveRight(length / 2).moveUp(length)
-      val bottomRightPoint = bottomLeftPoint.moveRight(length)
-
-      val leftLine   = LineSegment(bottomLeftPoint,  topPoint)
-      val rightLine  = LineSegment(bottomRightPoint, topPoint)
-      val bottomLine = LineSegment(bottomLeftPoint,  bottomRightPoint)
-
-      List(bottomLine, leftLine, rightLine)
+      Turtle(bottomLeftPoint, -60, List())
+        .forward(length)
+        .setHeading(60)
+        .forward(length)
+        .setHeading(-180)
+        .forward(length)
+        .path
     }
   }
 

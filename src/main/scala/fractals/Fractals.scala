@@ -9,13 +9,7 @@ object Fractals {
 
   def sierpinski(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
     if (currentDepth == iterations) {
-      Turtle(bottomLeftPoint, -60, List())
-        .forward(length)
-        .setHeading(60)
-        .forward(length)
-        .setHeading(-180)
-        .forward(length)
-        .path
+      Triangle(bottomLeftPoint, length).toLines
     } else {
       val newDepth  = currentDepth + 1
       val newLength = length / 2
