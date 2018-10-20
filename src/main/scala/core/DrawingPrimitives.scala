@@ -49,16 +49,16 @@ object DrawingPrimitives {
 
   case class Square(bottomLeftPoint: Point, length: Int) {
     def toLines: List[LineSegment] = {
-      val topLeftPoint     = bottomLeftPoint.moveUp(length)
-      val topRightPoint    = topLeftPoint.moveRight(length)
-      val bottomRightPoint = topRightPoint.moveDown(length)
 
-      val leftLine   = LineSegment(bottomLeftPoint,  topLeftPoint)
-      val rightLine  = LineSegment(bottomRightPoint, topRightPoint)
-      val topLine    = LineSegment(topLeftPoint,     topRightPoint)
-      val bottomLine = LineSegment(bottomLeftPoint,  bottomRightPoint)
-
-      List(bottomLine, topLine, leftLine, rightLine)
+      Turtle(bottomLeftPoint, -90, List())
+        .forward(length)
+        .setHeading(0)
+        .forward(length)
+        .setHeading(90)
+        .forward(length)
+        .setHeading(-180)
+        .forward(length)
+        .path
     }
   }
 }
