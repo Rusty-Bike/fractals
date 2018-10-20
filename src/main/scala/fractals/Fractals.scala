@@ -8,17 +8,14 @@ object Fractals {
   type Fractal = (Int, Int, Int, Point) => List[LineSegment]
 
   def sierpinski(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-
-    var turtle = Turtle(bottomLeftPoint, -45, List())
-      .forward(length)
-      .setHeading(45)
-      .forward(length)
-      .setHeading(-180)
-      .forward(length + (length * .41f).toInt)
-
     if (currentDepth == iterations) {
-      println(turtle.path)
-      turtle.path
+      Turtle(bottomLeftPoint, -60, List())
+        .forward(length)
+        .setHeading(60)
+        .forward(length)
+        .setHeading(-180)
+        .forward(length)
+        .path
     } else {
       val newDepth  = currentDepth + 1
       val newLength = length / 2
@@ -26,7 +23,7 @@ object Fractals {
       // Call ourselves again on the three sub-triangles
       val bottomLeftTriangle  = sierpinski(newDepth, iterations, newLength, bottomLeftPoint)
       val bottomRightTriangle = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength))
-      val topCenterTriangle   = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength / 2).moveUp(newLength))
+      val topCenterTriangle   = sierpinski(newDepth, iterations, newLength, bottomLeftPoint.moveRight(newLength / 2).moveUp((newLength * .87f).toInt))
 
       // Merge and return the list of lines
       bottomLeftTriangle ::: topCenterTriangle ::: bottomRightTriangle
