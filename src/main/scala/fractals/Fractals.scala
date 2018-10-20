@@ -1,5 +1,6 @@
 package fractals
 
+import core.Drawing.Turtle
 import core.DrawingPrimitives._
 
 object Fractals {
@@ -7,10 +8,17 @@ object Fractals {
   type Fractal = (Int, Int, Int, Point) => List[LineSegment]
 
   def sierpinski(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-    val triangle = Triangle(bottomLeftPoint, length)
+
+    var turtle = Turtle(bottomLeftPoint, -45, List())
+      .forward(length)
+      .setHeading(45)
+      .forward(length)
+      .setHeading(-180)
+      .forward(length + (length * .41f).toInt)
 
     if (currentDepth == iterations) {
-      triangle.toLines
+      println(turtle.path)
+      turtle.path
     } else {
       val newDepth  = currentDepth + 1
       val newLength = length / 2

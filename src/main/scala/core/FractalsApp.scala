@@ -55,6 +55,12 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
         SDL_Quit()
         System.exit(0)
 
+      case SDL_KEYDOWN =>
+    fractalRenderer.animate = !fractalRenderer.animate
+    infoText.updateAnimationState(fractalRenderer.animate)
+
+    fractalRenderer.lines = getLinesOfCurrentFractal
+    fractalRenderer.reset()
       case SDL_MOUSEBUTTONDOWN =>
         event.button.button match {
           case SDL_BUTTON_LEFT =>
