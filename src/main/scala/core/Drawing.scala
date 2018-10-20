@@ -10,26 +10,17 @@ object Drawing {
     def setHeading(heading: Int):  Turtle = copy(heading  = heading)
 
     def forward(amount: Int): Turtle = {
-
-      println(s"Turtle.forward(${Int}")
-      println(s"Location: (${location.x}, ${location.y})")
-
       val xAdj = (amount * Math.cos(Math.toRadians(heading))).toInt
-        val yAdj = (amount * Math.sin(Math.toRadians(heading))).toInt
-
-      println(s"Adjustment = (${xAdj}, ${yAdj})")
+      val yAdj = (amount * Math.sin(Math.toRadians(heading))).toInt
 
       val newPoint = Point(
         location.x + xAdj,
         location.y + yAdj
       )
 
-      println(newPoint)
-
       val newLine = LineSegment(location, newPoint)
 
       copy(location = newPoint, path = path ::: List(newLine))
-
     }
   }
 }
