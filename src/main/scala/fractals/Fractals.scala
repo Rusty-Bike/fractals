@@ -1,6 +1,5 @@
 package fractals
 
-import core.Drawing.Turtle
 import core.DrawingPrimitives._
 
 object Fractals {
@@ -110,9 +109,7 @@ object Fractals {
       kochCurve(currentDepth, actualBottomLeft + upRightDir * newLength, downRightDir, newLength)
   }
 
-
   def tree(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-
     val branchAngle = 20
 
     def loop(depth: Int, length: Int, start: Vec2, dir: Vec2): List[LineSegment] =
@@ -136,7 +133,6 @@ object Fractals {
   }
 
   def sierpinskiCarpet(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
-
     def getActualBottomLeftPoint(currentDepth: Int, bottomLeftPoint: Point) = {
       if(currentDepth == 0) {
         Point(length / 3, length * 2 / 3)

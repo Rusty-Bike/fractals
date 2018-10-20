@@ -3,7 +3,6 @@ package core
 import core.Drawing.Turtle
 
 object DrawingPrimitives {
-
   case class Point(x: Int, y: Int) {
     def moveRight(amount: Int): Point = copy(x = x + amount)
     def moveLeft(amount: Int):  Point = copy(x = x - amount)
@@ -49,7 +48,6 @@ object DrawingPrimitives {
 
   case class Square(bottomLeftPoint: Point, length: Int) {
     def toLines: List[LineSegment] = {
-
       Turtle(bottomLeftPoint, -90, List())
         .forward(length)
         .setHeading(0)

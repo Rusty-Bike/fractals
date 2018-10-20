@@ -19,7 +19,6 @@ object Drawing {
       )
 
       val newLine = LineSegment(location, newPoint)
-
       copy(location = newPoint, path = path ::: List(newLine))
     }
   }
