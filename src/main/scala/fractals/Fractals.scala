@@ -6,6 +6,26 @@ object Fractals {
 
   type Fractal = (Int, Int, Int, Point) => List[LineSegment]
 
+  def h(currentDepth: Int, iterations: Int, length: Int, bLeftPoint: Point): List[LineSegment] = {
+    val bottomLeftPoint = bLeftPoint.moveUp(length / 4)
+
+    if(currentDepth == iterations) {
+      H(bottomLeftPoint, length).toLines
+    }  else {
+      val topLeftPoint        = bottomLeftPoint.moveUp(((length / 3f) - (length / 12f)).toInt).moveLeft((length / 4f + length / 32f).toInt)
+      val topRightPoint       = bottomLeftPoint.moveUp(length / 3 - (length / 12)).moveRight(length - length / 4 - length /24)
+      val newBottomLeftPoint  = topLeftPoint.moveDown(length  / 3 + length  / 6)
+      val newBottomRightPoint = topRightPoint.moveDown(length / 3 +  length / 6)
+
+      val topLeftLines        = h(currentDepth + 1, iterations, length / 2, topLeftPoint)
+      val topRightLines       = h(currentDepth + 1, iterations, length / 2, topRightPoint)
+      val newBottomLeftLines  = h(currentDepth + 1, iterations, length / 2, newBottomLeftPoint)
+      val newBottomRightLines = h(currentDepth + 1, iterations, length / 2, newBottomRightPoint)
+
+      H(bottomLeftPoint, length).toLines ::: topLeftLines ::: newBottomRightLines ::: topRightLines ::: newBottomLeftLines
+    }
+  }
+
   def sierpinski(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
     if (currentDepth == iterations) {
       Triangle(bottomLeftPoint, length).toLines
