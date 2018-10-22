@@ -59,4 +59,17 @@ object DrawingPrimitives {
         .path
     }
   }
+
+  case class H(bottomLeftPoint: Point, length: Int) {
+    def toLines: List[LineSegment] = {
+      Turtle(bottomLeftPoint, -90, List())
+        .forward(length / 2)
+        .setLocation(bottomLeftPoint.moveRight(length))
+        .forward(length / 2)
+        .setLocation(bottomLeftPoint.moveUp(length / 4))
+        .setHeading(0)
+        .forward(length)
+        .path
+    }
+  }
 }
