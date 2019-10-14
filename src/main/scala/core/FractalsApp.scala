@@ -31,8 +31,6 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
        //        would use different rendering options).
        //   2. The container needs to be ordered and indexed.
        fractals = Array(
-         FractalInfo("dragonCurve",       dragonCurve),
-         FractalInfo("H",                 h),
          FractalInfo("Sierpinski",        sierpinski),
          FractalInfo("Vicsek",            vicsek),
          FractalInfo("Vicsek X",          vicsekx),
@@ -40,7 +38,9 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
          FractalInfo("Koch Curve",        kochCurve),
          FractalInfo("Koch Snowflake",    kochSnowflake),
          FractalInfo("Tree",              tree),
-         FractalInfo("Sierpinski Carpet", sierpinskiCarpet)
+         FractalInfo("Sierpinski Carpet", sierpinskiCarpet),
+         FractalInfo("dragonCurve",       dragonCurve),
+         FractalInfo("H",                 h)
       ),
       currentFractal = initialFractal,
       depth          = 0

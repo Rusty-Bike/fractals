@@ -41,8 +41,7 @@ You can use middle mouse button to animate the actual fractal.
 ## List of implemented fractals
 
  - 0: sierpinski
- ![Sierpinski
-Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
+ ![SierpinskiTriangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
 
  - 1: vicsek
   ![Vicsek](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
@@ -64,3 +63,9 @@ Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpi
 
 - 7: sierpinski carpet
  ![SierpinskiCarpet](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski-carpet.png)
+ 
+- 8: dragon curve 
+![DragonCurve](docs/images/dragon-curve.png)
+
+- 9: H fractal 
+![Hfractal](docs/images/H-fractal.png)
