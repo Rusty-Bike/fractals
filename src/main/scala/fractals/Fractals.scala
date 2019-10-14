@@ -6,6 +6,14 @@ object Fractals {
 
   type Fractal = (Int, Int, Int, Point) => List[LineSegment]
 
+  def dragonCurve(currentDepth: Int, iterations: Int, length: Int, bLeftPoint: Point): List[LineSegment] = {
+    val bottomLeftPoint = bLeftPoint.moveUp(length / 2).moveRight(length / 4)
+
+    val start = Vec2(bottomLeftPoint)
+    val rightDir = Vec2(1, 0)
+    Dragon.curve(iterations)(currentDepth, start, rightDir, length / 3).toList
+  }
+
   def h(currentDepth: Int, iterations: Int, length: Int, bLeftPoint: Point): List[LineSegment] = {
     val bottomLeftPoint = bLeftPoint.moveUp(length / 4)
 
