@@ -11,7 +11,7 @@ You need to install llvm, sdl2 and bdw-gc to your system.
 ### MacOS
 
 ```
-brew install llvm sdl2 bdw-gc
+brew install llvm sdl2 sdl2_ttf bdw-gc
 ```
 
 ### Linux (tested on Ubuntu 18.04)
@@ -44,7 +44,7 @@ You can use middle mouse button to animate the actual fractal.
  ![SierpinskiTriangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
 
  - 1: vicsek
-  ![Vicsek](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
+ ![Vicsek](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
 
  - 2: vicsekx
  ![VicsekX](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek-x.png)
@@ -65,7 +65,7 @@ You can use middle mouse button to animate the actual fractal.
  ![SierpinskiCarpet](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski-carpet.png)
  
 - 8: dragon curve 
-![DragonCurve](docs/images/dragon-curve.png)
+ ![DragonCurve](docs/images/dragon-curve.png)
 
 - 9: H fractal 
-![Hfractal](docs/images/H-fractal.png)
+ ![Hfractal](docs/images/H-fractal.png)
