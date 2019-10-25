@@ -11,7 +11,7 @@ You need to install llvm, sdl2 and bdw-gc to your system.
 ### MacOS
 
 ```
-brew install llvm sdl2 bdw-gc
+brew install llvm sdl2 sdl2_ttf bdw-gc
 ```
 
 ### Linux (tested on Ubuntu 18.04)
@@ -40,29 +40,29 @@ You can use middle mouse button to animate the actual fractal.
 
 ## List of implemented fractals
 
- - 0: sierpinski
- ![SierpinskiTriangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
+- 0: sierpinski
+![SierpinskiTriangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
 
- - 1: vicsek
-  ![Vicsek](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
+- 1: vicsek
+![Vicsek](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
 
- - 2: vicsekx
- ![VicsekX](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek-x.png)
+- 2: vicsekx
+![VicsekX](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek-x.png)
 
 - 3: cantorDust
- ![CantorDust](https://github.com/smithandrewl/fractals/raw/master/docs/images/cantor-dust.png)
+![CantorDust](https://github.com/smithandrewl/fractals/raw/master/docs/images/cantor-dust.png)
 
 - 4: kochCurve
- ![KochCurve](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-curve.png)
+![KochCurve](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-curve.png)
 
 - 5: kochSnowflake
- ![KochSnowFlake](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-snowflake.png)
+![KochSnowFlake](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-snowflake.png)
 
 - 6: Tree
- ![Tree](https://github.com/smithandrewl/fractals/raw/master/docs/images/tree.png)
+![Tree](https://github.com/smithandrewl/fractals/raw/master/docs/images/tree.png)
 
 - 7: sierpinski carpet
- ![SierpinskiCarpet](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski-carpet.png)
+![SierpinskiCarpet](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski-carpet.png)
  
 - 8: dragon curve 
 ![DragonCurve](docs/images/dragon-curve.png)
