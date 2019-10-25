@@ -40,8 +40,8 @@ You can use middle mouse button to animate the actual fractal.
 
 ## List of implemented fractals
 
- - 0: sierpinski
- ![SierpinskiTriangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
+- 0: sierpinski
+![SierpinskiTriangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
 
 - 1: vicsek
 ![Vicsek](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
