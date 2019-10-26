@@ -48,3 +48,22 @@ object Dragon extends Curve {
   }
 
 }
+
+object MinkowskiSausage extends Curve {
+
+  def curve(iterations: Iterations)(currentDepth: Int, start: Vec2, dir: Vec2, length: Double): Seq[LineSegment] = {
+    val stop: Depth => Boolean = _ == iterations
+
+    def loop(depth: Depth, segment: MinkowskiSausageSegment): Seq[LineSegment] =
+      if (stop(depth)) {
+        Seq(segment.toLine)
+      } else {
+        segment.divide
+          .map(loop(depth + 1, _))
+          .reduce(_ ++ _)
+      }
+
+    loop(currentDepth, MinkowskiSausageSegment(start, dir, length))
+  }
+
+}
