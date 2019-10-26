@@ -81,3 +81,10 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+# Metals
+.bloop
+.metals
+
+# Mac OS stuff
+.DS_Store
