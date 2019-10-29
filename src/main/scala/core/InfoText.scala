@@ -6,6 +6,7 @@ import sdl2.SDL._
 import sdl2.ttf.SDL_ttf._
 
 import scala.scalanative.native._
+import scala.scalanative.posix.netinet.in
 
 class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
   var numberOfLines = 0
@@ -23,7 +24,6 @@ class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
 
   def draw(data: Data, font: Ptr[TTF_Font], renderer: Ptr[SDL.SDL_Renderer]): CInt = {
     // Prepare the texture with the text
-
     Zone { implicit z =>
       val w = stackalloc[CInt]
       val h = stackalloc[CInt]
@@ -45,6 +45,37 @@ class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
       SDL_QueryTexture(texture2, null, null, w, h)
       rect = stackalloc[SDL_Rect].init(width - 10 - !w, 0, !w, !h) 
       SDL_RenderCopy(renderer, texture2, null, rect)
+
+      val instructions: List[String] = List(
+        s"LMB: Increase Fractal Depth",
+        s"RMB: Cycle Fractal",
+        s"MMB: Toggle Animation"
+      )
+
+      val retCode: Int = 0
+
+      val results: List[Int] = instructions.zipWithIndex.map({case (instruction, index) =>
+        drawText(instruction, 10, 40 + index*20, font, renderer)
+      }).filter(_ != 0)
+
+      if (results.length > 0) results.head
+      0
+    }
+  }
+
+  def drawText(text: String, x: CInt , y: CInt, font: Ptr[TTF_Font], renderer: Ptr[SDL.SDL_Renderer]): CInt = {
+    Zone { implicit z =>
+      val w = stackalloc[CInt]
+      val h = stackalloc[CInt]
+      
+      val ctext: CString = toCString(text)(z)
+      
+      val message = TTF_RenderText_Solid(font, ctext, fontColor)
+      val texture = SDL_CreateTextureFromSurface(renderer, message)
+
+      SDL_QueryTexture(texture, null, null, w, h)
+      var rect = stackalloc[SDL_Rect].init(x, y, !w, !h)
+      SDL_RenderCopy(renderer, texture, null, rect)
     }
   }
 }
