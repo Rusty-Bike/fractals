@@ -203,4 +203,11 @@ object Fractals {
       square.toLines ::: leftBox  ::: topLeftBox ::: topBox ::: topRightBox ::: rightBox ::: bottomRightBox ::: bottomBox ::: bottomLeftBox
     }
   }
+
+  def minkowskiSausage(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+    val start = Vec2(bottomLeftPoint.moveUp(length / 2))
+    val rightDir = Vec2(1, 0)
+    MinkowskiSausage.curve(iterations)(currentDepth, start, rightDir, length).toList
+  }
+
 }

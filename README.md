@@ -69,3 +69,6 @@ You can use middle mouse button to animate the actual fractal.
 
 - 9: H fractal 
 ![Hfractal](docs/images/H-fractal.png)
+
+- 10: Minkowski Sausage 
+![MinkowskiSausage](docs/images/minkowski-sausage.png)

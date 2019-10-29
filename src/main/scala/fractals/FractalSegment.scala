@@ -52,6 +52,29 @@ final case class DragonCurveSegment(start: Vec2, dir: Vec2, length: Double) exte
 
 }
 
+final case class MinkowskiSausageSegment(start: Vec2, dir: Vec2, length: Double) extends FractalSegment {
+
+  def divide: Seq[MinkowskiSausageSegment] = {
+    val newLength = length / 4
+    val offset = dir * newLength
+    val offsetCW90 = offset.rotate(90)
+    val offsetCCW90 = offset.rotate(-90)
+    val dirCW90 = dir.rotate(90)
+    val dirCCW90 = dir.rotate(-90)
+    Seq(
+      MinkowskiSausageSegment(start, dir, newLength),
+      MinkowskiSausageSegment(start + offset, dirCCW90, newLength),
+      MinkowskiSausageSegment(start + offset + offsetCCW90, dir, newLength),
+      MinkowskiSausageSegment(start + (offset * 2) + offsetCCW90, dirCW90, newLength),
+      MinkowskiSausageSegment(start + (offset * 2), dirCW90, newLength),
+      MinkowskiSausageSegment(start + (offset * 2) + offsetCW90, dir, newLength),
+      MinkowskiSausageSegment(start + (offset * 3) + offsetCW90, dirCCW90, newLength),
+      MinkowskiSausageSegment(start + (offset * 3), dir, newLength)
+    )
+  }
+
+}
+
 sealed trait Turn
 
 case object Right extends Turn
