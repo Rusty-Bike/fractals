@@ -72,3 +72,6 @@ You can use middle mouse button to animate the actual fractal.
 
 - 10: Minkowski Sausage 
 ![MinkowskiSausage](docs/images/minkowski-sausage.png)
+
+- 11: Cesaro 
+![Cesaro](docs/images/cesaro.png)

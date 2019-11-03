@@ -41,7 +41,8 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
          FractalInfo("Sierpinski Carpet", sierpinskiCarpet),
          FractalInfo("dragonCurve",       dragonCurve),
          FractalInfo("H",                 h),
-         FractalInfo("Minkowski Sausage", minkowskiSausage)
+         FractalInfo("Minkowski Sausage", minkowskiSausage),
+         FractalInfo("Cesaro",            cesaro)
       ),
       currentFractal = initialFractal,
       depth          = 0

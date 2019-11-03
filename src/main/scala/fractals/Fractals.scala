@@ -210,4 +210,21 @@ object Fractals {
     MinkowskiSausage.curve(iterations)(currentDepth, start, rightDir, length).toList
   }
 
+  def cesaro(currentDepth: Int, iterations: Int, length: Int, bottomLeftPoint: Point): List[LineSegment] = {
+    val rightDir = Vec2(1, 0)
+    val leftDir = Vec2(-1, 0)
+    val upDir = Vec2(0, -1)
+    val downDir = Vec2(0, 1)
+    val bottomLeftVec2 = Vec2(bottomLeftPoint)
+    val topLeftVec2 = Vec2(bottomLeftPoint.moveUp(length))
+    val topRightVec2 = Vec2(bottomLeftPoint.moveUp(length).moveRight(length))
+    val bottomRightVec2 = Vec2(bottomLeftPoint.moveRight(length))
+    val kochCurve = Koch.curve(iterations, 85) _
+
+    (kochCurve(currentDepth, bottomRightVec2, upDir, length) ++
+      kochCurve(currentDepth, bottomLeftVec2, rightDir, length) ++
+      kochCurve(currentDepth, topRightVec2, leftDir, length) ++
+      kochCurve(currentDepth,topLeftVec2, downDir, length)).toList
+  }
+
 }

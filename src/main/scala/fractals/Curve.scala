@@ -11,7 +11,7 @@ sealed trait Curve {
 
 object Koch extends Curve {
 
-  def curve(iterations: Iterations)(currentDepth: Int, start: Vec2, dir: Vec2, length: Double): Seq[LineSegment] = {
+  def curve(iterations: Iterations, degrees: Double = 60)(currentDepth: Int, start: Vec2, dir: Vec2, length: Double): Seq[LineSegment] = {
 
     val stop: Depth => Boolean = _ == iterations
 
@@ -24,7 +24,7 @@ object Koch extends Curve {
           .reduce(_ ++ _)
       }
 
-    loop(currentDepth, KochSegment(start, dir, length))
+    loop(currentDepth, KochSegment(start, dir, length, degrees))
   }
 
 }
