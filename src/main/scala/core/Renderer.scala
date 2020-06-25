@@ -19,10 +19,23 @@ class Renderer(var lines: List[LineSegment], var animate: Boolean = false) {
   def reset(): Unit = linesToDraw = 1
 
   def draw( renderer: Ptr[SDL.SDL_Renderer]): Unit = {
-    SDL_SetRenderDrawColor(renderer, 0.toUByte, 0.toUByte, 0.toUByte, SDL_ALPHA_OPAQUE)
+    SDL_SetRenderDrawColor(
+      renderer,
+      0.toUByte,
+      0.toUByte,
+      0.toUByte,
+      SDL_ALPHA_OPAQUE
+    )
+
     SDL_RenderClear(renderer)
 
-    SDL_SetRenderDrawColor(renderer, 255.toUByte, 255.toUByte, 255.toUByte, SDL_ALPHA_OPAQUE)
+    SDL_SetRenderDrawColor(
+      renderer,
+      255.toUByte,
+      255.toUByte,
+      255.toUByte,
+      SDL_ALPHA_OPAQUE
+    )
 
     if(animate) {
       if (linesToDraw == lines.length) linesToDraw = 1
@@ -43,14 +56,16 @@ class Renderer(var lines: List[LineSegment], var animate: Boolean = false) {
     }
 
     // Grab 'currentStep' number of lines from the line pile and draw them.
-    lines.view.take(linesToDraw).foreach { linesegment =>
-      SDL_RenderDrawLine(
-        renderer,
-        linesegment.start.x,
-        linesegment.start.y,
-        linesegment.end.x,
-        linesegment.end.y
-      )
+    lines.view.take(linesToDraw).foreach {
+      linesegment => {
+        SDL_RenderDrawLine(
+          renderer,
+          linesegment.start.x,
+          linesegment.start.y,
+          linesegment.end.x,
+          linesegment.end.y
+        )
+      }
     }
   }
 }
