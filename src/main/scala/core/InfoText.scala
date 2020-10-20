@@ -67,7 +67,7 @@ class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
 
       var rect = stackalloc[SDL_Rect].init(
         10,
-        0,
+        3,
         !w,
         !h
       )
@@ -130,7 +130,7 @@ class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
             drawText(
               instruction,
               10,
-              40 + index * 20,
+              60 + index * 20,
               font,
               renderer
             )
