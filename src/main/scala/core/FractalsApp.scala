@@ -102,7 +102,27 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
   override def onDraw(): Unit = {
     infoText.updateLinesNumber(fractalRenderer.linesToDraw)
 
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND)
+
     fractalRenderer.draw(renderer)
+
+    var rect1 = stackalloc[SDL_Rect].init(
+      0,
+      55,
+      280,
+      80
+    )
+
+    var rect2 = stackalloc[SDL_Rect].init(
+      0,
+      0,
+      800,
+      35
+    )
+    SDL_SetRenderDrawColor(renderer, 10.toUByte, 35.toUByte, 55.toUByte, 255.toUByte)
+
+    SDL_RenderFillRect(renderer, rect1)
+    SDL_RenderFillRect(renderer, rect2)
     infoText.draw(
       data,
       font,
