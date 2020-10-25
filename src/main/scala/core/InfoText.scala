@@ -7,12 +7,17 @@ import sdl2.ttf.SDL_ttf._
 
 import scala.scalanative.native._
 
-class InfoText(fontColor: SDL_Color, width: Int, height: Int) {
+class InfoText(
+  fontColor: SDL_Color,
+  width:     Int,
+  height:    Int
+) {
   var numberOfLines = 0
 
   def updateLinesNumber(linesToDraw: CInt): Unit = numberOfLines = linesToDraw
 
-  // Constructor OverLoad. If InfoText is instantiated without a color, fontColor is white.
+  // Constructor OverLoad. If InfoText is instantiated without a color,
+  // fontColor is white.
   def this(width: Int, height: Int){
     this(
       SDL_Color(

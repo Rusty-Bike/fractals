@@ -10,12 +10,19 @@ import scala.util.Try
 
 case class FractalInfo(name: String, code: Fractal)
 
-case class Data(fractals: Array[FractalInfo], currentFractal: Int, depth: Int)
+case class Data(
+  fractals:       Array[FractalInfo],
+  currentFractal: Int, depth: Int
+)
 
-object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
-  var data: Data = _
+object FractalsApp extends SdlApp(
+  c"Fractals",
+  800,
+  800
+) with App {
+  var data:            Data = _
   var fractalRenderer: Renderer = _
-  var initialFractal: Int = 0
+  var initialFractal:  Int = 0
 
   def getLinesOfCurrentFractal: List[LineSegment] =
     data.fractals(
@@ -81,7 +88,9 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
             fractalRenderer.reset()
           }
           case SDL_BUTTON_RIGHT => {
-            data = data.copy(currentFractal = (data.currentFractal + 1) % data.fractals.length)
+            data = data.copy(
+              currentFractal = (data.currentFractal + 1) % data.fractals.length
+            )
 
             fractalRenderer.lines = getLinesOfCurrentFractal
             fractalRenderer.reset()
@@ -119,15 +128,24 @@ object FractalsApp extends SdlApp(c"Fractals", 800, 800) with App {
       800,
       35
     )
-    SDL_SetRenderDrawColor(renderer, 10.toUByte, 35.toUByte, 55.toUByte, 255.toUByte)
+    SDL_SetRenderDrawColor(
+      renderer,
+      10.toUByte,
+      35.toUByte,
+      55.toUByte,
+      255.toUByte
+    )
 
     SDL_RenderFillRect(renderer, rect1)
     SDL_RenderFillRect(renderer, rect2)
+
     infoText.draw(
       data,
       font,
       renderer
-    ) // Must be after fractalRenderer.draw otherwise the text will be overwritten
+    ) // Must be after fractalRenderer.draw otherwise
+      // the text will be overwritten
+
     SDL_RenderPresent(renderer)
   }
 
