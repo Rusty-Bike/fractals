@@ -654,9 +654,9 @@ object Fractals {
   }
 
   def cesaro(
-    currentDepth: Int,
-    iterations: Int,
-    length: Int,
+    currentDepth:    Int,
+    iterations:      Int,
+    length:          Int,
     bottomLeftPoint: Point
   ): List[LineSegment] = {
     val rightDir        = Vec2(1, 0)

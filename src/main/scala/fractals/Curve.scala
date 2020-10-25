@@ -6,7 +6,7 @@ import core.DrawingPrimitives.{
 }
 
 sealed trait Curve {
-  type Depth = Int
+  type Depth      = Int
   type Iterations = Int
 }
 

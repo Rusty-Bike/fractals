@@ -23,9 +23,9 @@ sealed trait FractalSegment {
   * Has direction so that when it divides, it grows new segments in the right places
   */
 final case class KochSegment(
-  start: Vec2,
-  dir: Vec2,
-  length: Double,
+  start:   Vec2,
+  dir:     Vec2,
+  length:  Double,
   degrees: Double
 ) extends FractalSegment {
 

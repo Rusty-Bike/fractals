@@ -3,11 +3,24 @@ package core
 import core.DrawingPrimitives.LineSegment
 import sdl2.Extras.SDL_ALPHA_OPAQUE
 import sdl2.SDL
-import sdl2.SDL.{SDL_RenderClear, SDL_RenderDrawLine, SDL_SetRenderDrawColor}
 
-import scala.scalanative.native.{CInt, Ptr, Word, _}
+import sdl2.SDL.{
+  SDL_RenderClear,
+  SDL_RenderDrawLine,
+  SDL_SetRenderDrawColor
+}
 
-class Renderer(var lines: List[LineSegment], var animate: Boolean = false) {
+import scala.scalanative.native.{
+  CInt,
+  Ptr,
+  Word,
+  _
+}
+
+class Renderer(
+  var lines:   List[LineSegment],
+  var animate: Boolean = false
+) {
   val backgroundColor: (CInt, CInt, CInt) = (0, 0, 0)
   val lineColor:       (CInt, CInt, CInt) = (255, 255, 255)
 
@@ -45,8 +58,8 @@ class Renderer(var lines: List[LineSegment], var animate: Boolean = false) {
 
       if(drawNextLine) {
         // If we are animating and it is time to draw another line,
-        // increase the number of lines that will be pulled from the pile of lines
-        // and drawn.
+        // increase the number of lines that will be pulled from the
+        // pile of lines and drawn.
         linesToDraw = linesToDraw + 1
         lastLineDrawTime = timeNow
       }

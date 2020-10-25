@@ -28,7 +28,7 @@ object DrawingPrimitives {
       Vec2(nx, ny)
     }
 
-    def toPoint = Point(x.toInt, y.toInt)
+    def toPoint: Point = Point(x.toInt, y.toInt)
   }
 
   object Vec2 {

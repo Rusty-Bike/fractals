@@ -1,12 +1,28 @@
 package core
 
-import sdl2.Extras.{SDL_INIT_VIDEO, SDL_RENDERER_PRESENTVSYNC, SDL_WINDOWPOS_CENTERED, SDL_WINDOW_SHOWN, SDL_Color}
+import sdl2.Extras.{
+  SDL_INIT_VIDEO,
+  SDL_RENDERER_PRESENTVSYNC,
+  SDL_WINDOWPOS_CENTERED,
+  SDL_WINDOW_SHOWN,
+  SDL_Color
+}
+
 import sdl2.SDL._
 import sdl2.ttf.SDL_ttf._
 
-import scala.scalanative.native.{Ptr, UInt, stackalloc, _}
+import scala.scalanative.native.{
+  Ptr,
+  UInt,
+  stackalloc,
+  _
+}
 
-abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
+abstract class SdlApp(
+  title: CString,
+  height: Int,
+  width: Int
+) extends App {
   var window:   Ptr[SDL_Window]   = _
   var renderer: Ptr[SDL_Renderer] = _
   var font:     Ptr[TTF_Font]     = _
@@ -32,7 +48,8 @@ abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
     )
 
     // SDL_TTF Initialization
-    // If TTF fails to load, the program exites. But we could let it go on silently without showing any fonts.
+    // If TTF fails to load, the program exits. But we could let it go
+    // on silently without showing any fonts.
     if(TTF_Init() != 0) {
       println(
         "TTF_Init: %s".format(
@@ -47,7 +64,8 @@ abstract class SdlApp(title: CString, height: Int, width: Int) extends App {
 
     font = TTF_OpenFont(c"fonts/OpenSans-Regular.ttf", 20)
 
-    // If TTF_OpenFont failed to load, the program exites. Again we can ignore the error and not show any text.
+    // If TTF_OpenFont failed to load, the program exits.
+    // Again we can ignore the error and not show any text.
     if(font == null) {
       println(
         "TTF_OpenFont failed: %s".format(
