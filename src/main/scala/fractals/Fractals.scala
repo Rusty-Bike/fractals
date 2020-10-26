@@ -2,10 +2,21 @@ package fractals
 
 import core.DrawingPrimitives._
 
+/**
+ *
+ */
 object Fractals {
 
   type Fractal = (Int, Int, Int, Point) => List[LineSegment]
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bLeftPoint
+   * @return
+   */
   def dragonCurve(
     currentDepth: Int,
     iterations:   Int,
@@ -27,6 +38,14 @@ object Fractals {
     ).toList
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bLeftPoint
+   * @return
+   */
   def h(
     currentDepth: Int,
     iterations:   Int,
@@ -97,6 +116,14 @@ object Fractals {
     }
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def sierpinski(
     currentDepth:    Int,
     iterations:      Int,
@@ -144,6 +171,14 @@ object Fractals {
     }
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def vicsek(
     currentDepth:    Int,
     iterations:      Int,
@@ -222,6 +257,14 @@ object Fractals {
     }
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def vicsekx(
     currentDepth:    Int,
     iterations:      Int,
@@ -296,6 +339,14 @@ object Fractals {
     }
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def cantorDust(
     currentDepth:    Int,
     iterations:      Int,
@@ -358,6 +409,14 @@ object Fractals {
     }
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def kochCurve(
     currentDepth:    Int,
     iterations:      Int,
@@ -377,6 +436,14 @@ object Fractals {
     ).toList
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def kochSnowflake(
     currentDepth:    Int,
     iterations:      Int,
@@ -418,6 +485,14 @@ object Fractals {
     )
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def tree(
     currentDepth:    Int,
     iterations:      Int,
@@ -426,6 +501,14 @@ object Fractals {
 ): List[LineSegment] = {
     val branchAngle = 20
 
+    /**
+     *
+     * @param depth
+     * @param length
+     * @param start
+     * @param dir
+     * @return
+     */
     def loop(
       depth:  Int,
       length: Int,
@@ -474,12 +557,26 @@ object Fractals {
     )
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def sierpinskiCarpet(
     currentDepth:    Int,
     iterations:      Int,
     length:          Int,
     bottomLeftPoint: Point
 ): List[LineSegment] = {
+    /**
+     *
+     * @param currentDepth
+     * @param bottomLeftPoint
+     * @return
+     */
     def getActualBottomLeftPoint(
       currentDepth: Int,
       bottomLeftPoint: Point
@@ -493,6 +590,13 @@ object Fractals {
         bottomLeftPoint
       }
     }
+
+    /**
+     *
+     * @param currentDepth
+     * @param length
+     * @return
+     */
     def getActualLength(
      currentDepth: Int,
      length: Int
@@ -629,6 +733,14 @@ object Fractals {
     }
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def minkowskiSausage(
     currentDepth:    Int,
     iterations:      Int,
@@ -653,6 +765,14 @@ object Fractals {
     ).toList
   }
 
+  /**
+   *
+   * @param currentDepth
+   * @param iterations
+   * @param length
+   * @param bottomLeftPoint
+   * @return
+   */
   def cesaro(
     currentDepth:    Int,
     iterations:      Int,

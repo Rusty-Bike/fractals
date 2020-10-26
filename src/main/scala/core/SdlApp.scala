@@ -18,6 +18,12 @@ import scala.scalanative.native.{
   _
 }
 
+/**
+ *
+ * @param title
+ * @param height
+ * @param width
+ */
 abstract class SdlApp(
   title: CString,
   height: Int,
@@ -29,6 +35,9 @@ abstract class SdlApp(
 
   val infoText: InfoText = new InfoText(width, height)
 
+  /**
+   *
+   */
   def init(): Unit = {
 
     SDL_Init(SDL_INIT_VIDEO)
@@ -76,8 +85,15 @@ abstract class SdlApp(
     }
   }
 
+  /**
+   *
+   * @param event
+   */
   def onEvent(event: Ptr[SDL_Event]): Unit
 
+  /**
+   *
+   */
   def loop(): Unit = {
     val event = stackalloc[SDL_Event]
 
@@ -92,6 +108,10 @@ abstract class SdlApp(
     }
   }
 
+  /**
+   *
+   * @param ms
+   */
   def delay(ms: UInt): Unit = {
     SDL_Delay(ms)
   }
@@ -100,6 +120,9 @@ abstract class SdlApp(
   def onIdle():    Unit
   def onCleanup(): Unit
 
+  /**
+   *
+   */
   def cleanup(): Unit = {
     if(font != null) {
       TTF_CloseFont(font)

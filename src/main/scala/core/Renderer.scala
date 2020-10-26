@@ -17,6 +17,11 @@ import scala.scalanative.native.{
   _
 }
 
+/**
+ *
+ * @param lines
+ * @param animate
+ */
 class Renderer(
   var lines:   List[LineSegment],
   var animate: Boolean = false
@@ -29,8 +34,15 @@ class Renderer(
 
   var lastLineDrawTime: Word = System.currentTimeMillis()
 
+  /**
+   *
+   */
   def reset(): Unit = linesToDraw = 1
 
+  /**
+   *
+   * @param renderer
+   */
   def draw( renderer: Ptr[SDL.SDL_Renderer]): Unit = {
     SDL_SetRenderDrawColor(
       renderer,

@@ -7,6 +7,12 @@ import sdl2.ttf.SDL_ttf._
 
 import scala.scalanative.native._
 
+/**
+ *
+ * @param fontColor
+ * @param width
+ * @param height
+ */
 class InfoText(
   fontColor: SDL_Color,
   width:     Int,
@@ -14,10 +20,19 @@ class InfoText(
 ) {
   var numberOfLines = 0
 
+  /**
+   *
+   * @param linesToDraw
+   */
   def updateLinesNumber(linesToDraw: CInt): Unit = numberOfLines = linesToDraw
 
   // Constructor OverLoad. If InfoText is instantiated without a color,
   // fontColor is white.
+  /**
+   *
+   * @param width
+   * @param height
+   */
   def this(width: Int, height: Int){
     this(
       SDL_Color(
@@ -33,10 +48,21 @@ class InfoText(
 
   var isAnimationOn: String  = "off"
 
+  /**
+   *
+   * @param b
+   */
   def updateAnimationState(b: Boolean): Unit = {
     isAnimationOn = if(b) "On" else "Off"
   }
 
+  /**
+   *
+   * @param data
+   * @param font
+   * @param renderer
+   * @return
+   */
   def draw(
     data:     Data,
     font:     Ptr[TTF_Font],
@@ -148,6 +174,15 @@ class InfoText(
     }
   }
 
+  /**
+   *
+   * @param text
+   * @param x
+   * @param y
+   * @param font
+   * @param renderer
+   * @return
+   */
   def drawText(
     text:     String,
     x:        CInt ,

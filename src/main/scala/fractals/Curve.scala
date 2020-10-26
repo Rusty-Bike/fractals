@@ -5,13 +5,29 @@ import core.DrawingPrimitives.{
   Vec2
 }
 
+/**
+ *
+ */
 sealed trait Curve {
   type Depth      = Int
   type Iterations = Int
 }
 
+/**
+ *
+ */
 object Koch extends Curve {
 
+  /**
+   *
+   * @param iterations
+   * @param degrees
+   * @param currentDepth
+   * @param start
+   * @param dir
+   * @param length
+   * @return
+   */
   def curve(
     iterations: Iterations,
     degrees:    Double = 60
@@ -24,6 +40,12 @@ object Koch extends Curve {
 
     val stop: Depth => Boolean = _ == iterations
 
+    /**
+     *
+     * @param depth
+     * @param segment
+     * @return
+     */
     def loop(
       depth:   Depth,
       segment: KochSegment
@@ -49,8 +71,20 @@ object Koch extends Curve {
 }
 
 
+/**
+ *
+ */
 object Dragon extends Curve {
 
+  /**
+   *
+   * @param iterations
+   * @param currentDepth
+   * @param start
+   * @param dir
+   * @param length
+   * @return
+   */
   def curve(
     iterations: Iterations
   )(
@@ -62,6 +96,13 @@ object Dragon extends Curve {
 
     val stop: Depth => Boolean = _ == iterations
 
+    /**
+     *
+     * @param depth
+     * @param segment
+     * @param direction
+     * @return
+     */
     def loop(
       depth:     Depth,
       segment:   DragonCurveSegment,
@@ -94,8 +135,19 @@ object Dragon extends Curve {
   }
 }
 
+/**
+ *
+ */
 object MinkowskiSausage extends Curve {
-
+  /**
+   *
+   * @param iterations
+   * @param currentDepth
+   * @param start
+   * @param dir
+   * @param length
+   * @return
+   */
   def curve(
     iterations: Iterations
   )(
@@ -106,6 +158,12 @@ object MinkowskiSausage extends Curve {
   ): Seq[LineSegment] = {
     val stop: Depth => Boolean = _ == iterations
 
+    /**
+     *
+     * @param depth
+     * @param segment
+     * @return
+     */
     def loop(
       depth:   Depth,
       segment: MinkowskiSausageSegment

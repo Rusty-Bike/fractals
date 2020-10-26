@@ -8,13 +8,27 @@ import sdl2.SDL._
 import scala.scalanative.native._
 import scala.util.Try
 
+/**
+ *
+ * @param name
+ * @param code
+ */
 case class FractalInfo(name: String, code: Fractal)
 
+/**
+ *
+ * @param fractals
+ * @param currentFractal
+ * @param depth
+ */
 case class Data(
   fractals:       Array[FractalInfo],
   currentFractal: Int, depth: Int
 )
 
+/**
+ *
+ */
 object FractalsApp extends SdlApp(
   c"Fractals",
   800,
@@ -24,6 +38,10 @@ object FractalsApp extends SdlApp(
   var fractalRenderer: Renderer = _
   var initialFractal:  Int = 0
 
+  /**
+   *
+   * @return
+   */
   def getLinesOfCurrentFractal: List[LineSegment] =
     data.fractals(
       data.currentFractal
@@ -34,6 +52,10 @@ object FractalsApp extends SdlApp(
       Point(0, 798)
     )
 
+  /**
+   *
+   * @param args
+   */
   override def main(args: Array[String]): Unit = {
 
     initialFractal = Try(args(0).toInt).getOrElse(0)
@@ -66,6 +88,10 @@ object FractalsApp extends SdlApp(
     super.main(args)
   }
 
+  /**
+   *
+   * @param event
+   */
   override def onEvent(event: Ptr[SDL_Event]): Unit = {
     event.type_ match {
       case SDL_QUIT =>
@@ -108,6 +134,9 @@ object FractalsApp extends SdlApp(
     }
   }
 
+  /**
+   *
+   */
   override def onDraw(): Unit = {
     infoText.updateLinesNumber(fractalRenderer.linesToDraw)
 
@@ -149,8 +178,14 @@ object FractalsApp extends SdlApp(
     SDL_RenderPresent(renderer)
   }
 
+  /**
+   *
+   */
   override def onIdle(): Unit = {}
 
+  /**
+   *
+   */
   override def onCleanup(): Unit = {}
 
 }

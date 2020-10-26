@@ -2,11 +2,18 @@ package fractals
 
 import core.DrawingPrimitives.{LineSegment, Vec2}
 
+/**
+ *
+ */
 sealed trait FractalSegment {
   val start:  Vec2
   val dir:    Vec2
   val length: Double
 
+  /**
+   *
+   * @return
+   */
   def toLine: LineSegment = {
     val end = start + dir * length
 
@@ -19,17 +26,24 @@ sealed trait FractalSegment {
 }
 
 /**
-  * One of the segments of the Koch Curve: _/\_
-  * Has direction so that when it divides, it grows new segments in the right places
-  */
+ * One of the segments of the Koch Curve: _/\_
+ * Has direction so that when it divides, it grows new segments in the right places
+ *
+ * @param start
+ * @param dir
+ * @param length
+ * @param degrees
+ */
 final case class KochSegment(
   start:   Vec2,
   dir:     Vec2,
   length:  Double,
   degrees: Double
 ) extends FractalSegment {
-
-  // Divide into 4 segments _/\_
+  /**
+   * Divide into 4 segments _/\_
+   * @return
+   */
   def divide: Seq[KochSegment] = {
     val cos =  Math.cos(Math.toRadians(degrees))
     val newLength = length / (2 * (1 + cos))
@@ -63,12 +77,23 @@ final case class KochSegment(
   }
 }
 
+/**
+ *
+ * @param start
+ * @param dir
+ * @param length
+ */
 final case class DragonCurveSegment(
  start:  Vec2,
  dir:    Vec2,
  length: Double
 ) extends FractalSegment {
 
+  /**
+   *
+   * @param rotationDir
+   * @return
+   */
   def divide(rotationDir: Turn): Seq[DragonCurveSegment] = {
     val newLength = length / Math.sqrt(2)
     rotationDir match {
@@ -77,6 +102,12 @@ final case class DragonCurveSegment(
     }
   }
 
+  /**
+   *
+   * @param degrees
+   * @param newLength
+   * @return
+   */
   def rotateSegment(
    degrees:   Int,
    newLength: Double
@@ -95,12 +126,22 @@ final case class DragonCurveSegment(
     )
 }
 
+/**
+ *
+ * @param start
+ * @param dir
+ * @param length
+ */
 final case class MinkowskiSausageSegment(
   start:  Vec2,
   dir:    Vec2,
   length: Double
 ) extends FractalSegment {
 
+  /**
+   *
+   * @return
+   */
   def divide: Seq[MinkowskiSausageSegment] = {
     val newLength   = length / 4
     val offset      = dir * newLength
@@ -153,7 +194,17 @@ final case class MinkowskiSausageSegment(
   }
 }
 
+/**
+ *
+ */
 sealed trait Turn
 
+/**
+ *
+ */
 case object Right extends Turn
+
+/**
+ *
+ */
 case object Left  extends Turn
