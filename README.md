@@ -3,7 +3,7 @@ A Scala native fractal generator.
 
 Sierpinski Triangle
 ![Sierpinski
-Triangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
+Triangle](docs/images/sierpinski.png)
 
 ## First runners
 You need to install llvm, sdl2 and bdw-gc to your system.
@@ -41,28 +41,28 @@ You can use middle mouse button to animate the actual fractal.
 ## List of implemented fractals
 
 - 0: sierpinski
-![SierpinskiTriangle](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski.png)
+![SierpinskiTriangle](docs/images/sierpinski.png)
 
 - 1: vicsek
-![Vicsek](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek.png)
+![Vicsek](docs/images/vicsek.png)
 
 - 2: vicsekx
-![VicsekX](https://github.com/smithandrewl/fractals/raw/master/docs/images/vicsek-x.png)
+![VicsekX](docs/images/vicsek-x.png)
 
 - 3: cantorDust
-![CantorDust](https://github.com/smithandrewl/fractals/raw/master/docs/images/cantor-dust.png)
+![CantorDust](docs/images/cantor-dust.png)
 
 - 4: kochCurve
-![KochCurve](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-curve.png)
+![KochCurve](docs/images/koch-curve.png)
 
 - 5: kochSnowflake
-![KochSnowFlake](https://github.com/smithandrewl/fractals/raw/master/docs/images/koch-snowflake.png)
+![KochSnowFlake](docs/images/koch-snowflake.png)
 
 - 6: Tree
-![Tree](https://github.com/smithandrewl/fractals/raw/master/docs/images/tree.png)
+![Tree](docs/images/tree.png)
 
 - 7: sierpinski carpet
-![SierpinskiCarpet](https://github.com/smithandrewl/fractals/raw/master/docs/images/sierpinski-carpet.png)
+![SierpinskiCarpet](docs/images/sierpinski-carpet.png)
  
 - 8: dragon curve 
 ![DragonCurve](docs/images/dragon-curve.png)
