@@ -2,18 +2,11 @@ package fractals
 
 import core.DrawingPrimitives.{LineSegment, Vec2}
 
-/**
- *
- */
 sealed trait FractalSegment {
   val start:  Vec2
   val dir:    Vec2
   val length: Double
 
-  /**
-   *
-   * @return
-   */
   def toLine: LineSegment = {
     val end = start + dir * length
 
@@ -77,23 +70,12 @@ final case class KochSegment(
   }
 }
 
-/**
- *
- * @param start
- * @param dir
- * @param length
- */
 final case class DragonCurveSegment(
  start:  Vec2,
  dir:    Vec2,
  length: Double
 ) extends FractalSegment {
 
-  /**
-   *
-   * @param rotationDir
-   * @return
-   */
   def divide(rotationDir: Turn): Seq[DragonCurveSegment] = {
     val newLength = length / Math.sqrt(2)
     rotationDir match {
@@ -102,12 +84,6 @@ final case class DragonCurveSegment(
     }
   }
 
-  /**
-   *
-   * @param degrees
-   * @param newLength
-   * @return
-   */
   def rotateSegment(
    degrees:   Int,
    newLength: Double
@@ -126,22 +102,12 @@ final case class DragonCurveSegment(
     )
 }
 
-/**
- *
- * @param start
- * @param dir
- * @param length
- */
 final case class MinkowskiSausageSegment(
   start:  Vec2,
   dir:    Vec2,
   length: Double
 ) extends FractalSegment {
 
-  /**
-   *
-   * @return
-   */
   def divide: Seq[MinkowskiSausageSegment] = {
     val newLength   = length / 4
     val offset      = dir * newLength
@@ -194,17 +160,7 @@ final case class MinkowskiSausageSegment(
   }
 }
 
-/**
- *
- */
+
 sealed trait Turn
-
-/**
- *
- */
 case object Right extends Turn
-
-/**
- *
- */
 case object Left  extends Turn
