@@ -5,16 +5,13 @@ import core.DrawingPrimitives.{
   Vec2
 }
 
-/**
- *
- */
 sealed trait Curve {
   type Depth      = Int
   type Iterations = Int
 }
 
 /**
- *
+ * Computes the Koch fractal
  */
 object Koch extends Curve {
 
@@ -40,12 +37,6 @@ object Koch extends Curve {
 
     val stop: Depth => Boolean = _ == iterations
 
-    /**
-     *
-     * @param depth
-     * @param segment
-     * @return
-     */
     def loop(
       depth:   Depth,
       segment: KochSegment
@@ -72,19 +63,10 @@ object Koch extends Curve {
 
 
 /**
- *
+ * Computes the Dragon fractal
  */
 object Dragon extends Curve {
 
-  /**
-   *
-   * @param iterations
-   * @param currentDepth
-   * @param start
-   * @param dir
-   * @param length
-   * @return
-   */
   def curve(
     iterations: Iterations
   )(
@@ -96,13 +78,6 @@ object Dragon extends Curve {
 
     val stop: Depth => Boolean = _ == iterations
 
-    /**
-     *
-     * @param depth
-     * @param segment
-     * @param direction
-     * @return
-     */
     def loop(
       depth:     Depth,
       segment:   DragonCurveSegment,
@@ -136,18 +111,10 @@ object Dragon extends Curve {
 }
 
 /**
- *
+ * Computes the Minkowski sausage
  */
 object MinkowskiSausage extends Curve {
-  /**
-   *
-   * @param iterations
-   * @param currentDepth
-   * @param start
-   * @param dir
-   * @param length
-   * @return
-   */
+
   def curve(
     iterations: Iterations
   )(
@@ -158,12 +125,6 @@ object MinkowskiSausage extends Curve {
   ): Seq[LineSegment] = {
     val stop: Depth => Boolean = _ == iterations
 
-    /**
-     *
-     * @param depth
-     * @param segment
-     * @return
-     */
     def loop(
       depth:   Depth,
       segment: MinkowskiSausageSegment
