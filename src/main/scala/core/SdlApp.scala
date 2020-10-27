@@ -18,6 +18,12 @@ import scala.scalanative.native.{
   _
 }
 
+/**
+ * Represents a windowed SDL application.
+ * @param title The window title
+ * @param height The window height
+ * @param width The window width
+ */
 abstract class SdlApp(
   title: CString,
   height: Int,
@@ -29,6 +35,9 @@ abstract class SdlApp(
 
   val infoText: InfoText = new InfoText(width, height)
 
+  /**
+   * Initializes SDL
+   */
   def init(): Unit = {
 
     SDL_Init(SDL_INIT_VIDEO)
@@ -78,6 +87,15 @@ abstract class SdlApp(
 
   def onEvent(event: Ptr[SDL_Event]): Unit
 
+  /**
+   * The main render loop.
+   *
+   * It:
+   *
+   * 1. Handles input
+   * 2. Updates state
+   * 3. Draws the state to the screen
+   */
   def loop(): Unit = {
     val event = stackalloc[SDL_Event]
 
@@ -92,6 +110,10 @@ abstract class SdlApp(
     }
   }
 
+  /**
+   * Pauses for a number of milliseconds
+   * @param ms The milliseconds to pause
+   */
   def delay(ms: UInt): Unit = {
     SDL_Delay(ms)
   }
@@ -100,6 +122,9 @@ abstract class SdlApp(
   def onIdle():    Unit
   def onCleanup(): Unit
 
+  /**
+   * Frees memory when exiting the application
+   */
   def cleanup(): Unit = {
     if(font != null) {
       TTF_CloseFont(font)

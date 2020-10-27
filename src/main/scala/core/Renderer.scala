@@ -17,6 +17,11 @@ import scala.scalanative.native.{
   _
 }
 
+/**
+ * Renders the state of the application to the screen
+ * @param lines The lines to draw
+ * @param animate Whether or not the drawing should be animated
+ */
 class Renderer(
   var lines:   List[LineSegment],
   var animate: Boolean = false
@@ -31,6 +36,12 @@ class Renderer(
 
   def reset(): Unit = linesToDraw = 1
 
+  /**
+   * Draws the fractal to the screen.
+   *
+   * If animating, the renderer only draws part of the fractal for this frame.
+   * @param renderer The SDL renderer to use to draw the fractal.
+   */
   def draw( renderer: Ptr[SDL.SDL_Renderer]): Unit = {
     SDL_SetRenderDrawColor(
       renderer,

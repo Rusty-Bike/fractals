@@ -19,17 +19,24 @@ sealed trait FractalSegment {
 }
 
 /**
-  * One of the segments of the Koch Curve: _/\_
-  * Has direction so that when it divides, it grows new segments in the right places
-  */
+ * One of the segments of the Koch Curve: _/\_
+ * Has direction so that when it divides, it grows new segments in the right places
+ *
+ * @param start
+ * @param dir
+ * @param length
+ * @param degrees
+ */
 final case class KochSegment(
   start:   Vec2,
   dir:     Vec2,
   length:  Double,
   degrees: Double
 ) extends FractalSegment {
-
-  // Divide into 4 segments _/\_
+  /**
+   * Divide into 4 segments _/\_
+   * @return
+   */
   def divide: Seq[KochSegment] = {
     val cos =  Math.cos(Math.toRadians(degrees))
     val newLength = length / (2 * (1 + cos))
@@ -153,7 +160,7 @@ final case class MinkowskiSausageSegment(
   }
 }
 
-sealed trait Turn
 
+sealed trait Turn
 case object Right extends Turn
 case object Left  extends Turn

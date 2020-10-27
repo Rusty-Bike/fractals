@@ -8,13 +8,30 @@ import sdl2.SDL._
 import scala.scalanative.native._
 import scala.util.Try
 
+/**
+ * The name of the fractal and the code to calculate it.
+ *
+ * @param name The name of the fractal
+ * @param code The code to calculate the fractal
+ */
 case class FractalInfo(name: String, code: Fractal)
 
+/**
+ * The state of the application as it is drawn to the screen.
+ *
+ *
+ * @param fractals The fractals available to use
+ * @param currentFractal The current selected fractal
+ * @param depth The maximum depth to calculate the fractal to
+ */
 case class Data(
   fractals:       Array[FractalInfo],
   currentFractal: Int, depth: Int
 )
 
+/**
+ * The actual application, which handles input and draws fractals.
+ */
 object FractalsApp extends SdlApp(
   c"Fractals",
   800,
@@ -24,6 +41,10 @@ object FractalsApp extends SdlApp(
   var fractalRenderer: Renderer = _
   var initialFractal:  Int = 0
 
+  /**
+   * Calculates the line segments for the current fractal at the current depth.
+   * @return The line segments of the current fractal.
+   */
   def getLinesOfCurrentFractal: List[LineSegment] =
     data.fractals(
       data.currentFractal
@@ -66,6 +87,10 @@ object FractalsApp extends SdlApp(
     super.main(args)
   }
 
+  /**
+   * Handles SDL events (mouse and keyboard events).
+   * @param event The event to handle
+   */
   override def onEvent(event: Ptr[SDL_Event]): Unit = {
     event.type_ match {
       case SDL_QUIT =>
@@ -108,6 +133,9 @@ object FractalsApp extends SdlApp(
     }
   }
 
+  /**
+   * Draws the fractal and the HUD on top of the fractal.
+   */
   override def onDraw(): Unit = {
     infoText.updateLinesNumber(fractalRenderer.linesToDraw)
 

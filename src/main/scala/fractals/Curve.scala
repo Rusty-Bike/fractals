@@ -10,8 +10,21 @@ sealed trait Curve {
   type Iterations = Int
 }
 
+/**
+ * Computes the Koch fractal
+ */
 object Koch extends Curve {
 
+  /**
+   *
+   * @param iterations
+   * @param degrees
+   * @param currentDepth
+   * @param start
+   * @param dir
+   * @param length
+   * @return
+   */
   def curve(
     iterations: Iterations,
     degrees:    Double = 60
@@ -49,6 +62,9 @@ object Koch extends Curve {
 }
 
 
+/**
+ * Computes the Dragon fractal
+ */
 object Dragon extends Curve {
 
   def curve(
@@ -94,6 +110,9 @@ object Dragon extends Curve {
   }
 }
 
+/**
+ * Computes the Minkowski sausage
+ */
 object MinkowskiSausage extends Curve {
 
   def curve(
