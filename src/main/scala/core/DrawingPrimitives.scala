@@ -45,16 +45,20 @@ object DrawingPrimitives {
      * Calculates the length of the vector
      * @return The length of the vector
      */
-    def length: Double  = Math.sqrt(x * x + y * y)
+    def length(): Double  = Math.sqrt(x * x + y * y)
 
     /**
      * Calculates the unit vector of the vector
      * @return Returns the unit vector of the vector
      */
-    def normalize: Vec2 = Vec2(
-      (x / length).toInt,
-      (y / length).toInt
-    )
+    def normalize: Vec2 = {
+      val l = length()
+
+      Vec2(
+        (x / l).toInt,
+        (y / l).toInt
+      )
+    }
 
     /**
      * Rotates the vector by 'degrees' degrees
