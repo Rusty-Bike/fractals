@@ -8,10 +8,10 @@ import sdl2.ttf.SDL_ttf._
 import scala.scalanative.native._
 
 /**
- *
- * @param fontColor
- * @param width
- * @param height
+ * Draws the HUD on the screen.
+ * @param fontColor The font color to use
+ * @param width The width of the HUD text block
+ * @param height The height of the HUD text block
  */
 class InfoText(
   fontColor: SDL_Color,
@@ -21,17 +21,18 @@ class InfoText(
   var numberOfLines = 0
 
   /**
-   *
+   * Sets the number of lines currently being drawn to the screen.
    * @param linesToDraw
    */
   def updateLinesNumber(linesToDraw: CInt): Unit = numberOfLines = linesToDraw
 
-  // Constructor OverLoad. If InfoText is instantiated without a color,
-  // fontColor is white.
+
   /**
+   * Constructor OverLoad. If InfoText is instantiated without a color,
+   * fontColor is white.
    *
-   * @param width
-   * @param height
+   * @param width The width of the HUD text block
+   * @param height The height of the HUD text block
    */
   def this(width: Int, height: Int){
     this(
@@ -49,18 +50,19 @@ class InfoText(
   var isAnimationOn: String  = "off"
 
   /**
-   *
-   * @param b
+   * Toggles whether or not we are animating when drawing.
+   * @param b Whether or not we are animating.
    */
   def updateAnimationState(b: Boolean): Unit = {
     isAnimationOn = if(b) "On" else "Off"
   }
 
   /**
+   * Draws the HUD onto the screen.
    *
-   * @param data
-   * @param font
-   * @param renderer
+   * @param data The data to draw from
+   * @param font The font to use
+   * @param renderer The SDL renderer to draw with
    * @return
    */
   def draw(
@@ -175,12 +177,12 @@ class InfoText(
   }
 
   /**
-   *
-   * @param text
-   * @param x
-   * @param y
-   * @param font
-   * @param renderer
+   * Draws a line of text to the screen
+   * @param text The text to draw
+   * @param x The x value of the start of the text
+   * @param y The y value of the start of the text
+   * @param font The font to use
+   * @param renderer The SDL renderer to draw with.
    * @return
    */
   def drawText(
