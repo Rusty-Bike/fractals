@@ -11,11 +11,13 @@ object Fractals {
 
   /**
    *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bLeftPoint
-   * @return
+   * Renders the dragon curve to a list of line segments.
+   *
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bLeftPoint The bottom left point
+   * @return The line segments making up the fractal.
    */
   def dragonCurve(
     currentDepth: Int,
@@ -39,12 +41,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bLeftPoint
-   * @return
+   * Renders the H fractal to a list of line segments.
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length     The length
+   * @param bLeftPoint The bottom left point
+   * @return The line segments making up the H fractal.
    */
   def h(
     currentDepth: Int,
@@ -117,12 +119,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the sierpinski triangle to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the sierpinski triangle
    */
   def sierpinski(
     currentDepth:    Int,
@@ -172,12 +174,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the vicsek fractal to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the vicsek fractal
    */
   def vicsek(
     currentDepth:    Int,
@@ -258,12 +260,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the vicsek X fractal to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the vicsek X fractal.
    */
   def vicsekx(
     currentDepth:    Int,
@@ -340,12 +342,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the cantor dust fractal to a list of line segments.
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point.
+   * @return The list of line segments making up the cantorDust fractal
    */
   def cantorDust(
     currentDepth:    Int,
@@ -410,12 +412,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the koch curve to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return A list of the line segments making up the Koch curve
    */
   def kochCurve(
     currentDepth:    Int,
@@ -437,12 +439,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the Koch snowflake to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the Koch snowflake
    */
   def kochSnowflake(
     currentDepth:    Int,
@@ -486,12 +488,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the tree fractal to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the tree fractal.
    */
   def tree(
     currentDepth:    Int,
@@ -501,14 +503,6 @@ object Fractals {
 ): List[LineSegment] = {
     val branchAngle = 20
 
-    /**
-     *
-     * @param depth
-     * @param length
-     * @param start
-     * @param dir
-     * @return
-     */
     def loop(
       depth:  Int,
       length: Int,
@@ -558,12 +552,13 @@ object Fractals {
   }
 
   /**
+   * Renders the sierpinski carpet to a list of line segments.
    *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the Sierpinski carpet
    */
   def sierpinskiCarpet(
     currentDepth:    Int,
@@ -571,12 +566,6 @@ object Fractals {
     length:          Int,
     bottomLeftPoint: Point
 ): List[LineSegment] = {
-    /**
-     *
-     * @param currentDepth
-     * @param bottomLeftPoint
-     * @return
-     */
     def getActualBottomLeftPoint(
       currentDepth: Int,
       bottomLeftPoint: Point
@@ -591,12 +580,6 @@ object Fractals {
       }
     }
 
-    /**
-     *
-     * @param currentDepth
-     * @param length
-     * @return
-     */
     def getActualLength(
      currentDepth: Int,
      length: Int
@@ -734,12 +717,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the sierpinski triangle to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the Minkowski sausage
    */
   def minkowskiSausage(
     currentDepth:    Int,
@@ -766,12 +749,12 @@ object Fractals {
   }
 
   /**
-   *
-   * @param currentDepth
-   * @param iterations
-   * @param length
-   * @param bottomLeftPoint
-   * @return
+   * Renders the Cesaro fractal to a list of line segments
+   * @param currentDepth The current depth
+   * @param iterations The maximum depth
+   * @param length The length
+   * @param bottomLeftPoint The bottom left point
+   * @return The list of line segments making up the Cesaro fractal.
    */
   def cesaro(
     currentDepth:    Int,
